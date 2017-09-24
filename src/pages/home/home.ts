@@ -101,6 +101,7 @@ export class HomePage {
   private eventClick(start, end, allDay){
           //alert('Seleccionado');
             console.log('Seleccionado');
+            
   }
 
   volverFecha(){
