@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {CalendarComponent} from "ap-angular2-fullcalendar/src/calendar/calendar";
 import { ListPage } from "../list/list";
+import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 
 @Component({
   selector: 'page-home',
@@ -9,6 +10,9 @@ import { ListPage } from "../list/list";
 })
 export class HomePage {
   selectedDay:any;
+  turnosList: FirebaseListObservable<any>;
+  events$=[];
+  
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
     calendarOptions:Object = {
 			header: {
@@ -25,70 +29,28 @@ export class HomePage {
         defaultDate: '2017-09-12',
         editable: true,
         eventLimit: true, // allow "more" link when too many events
+        eventDrop: this.eventDrop.bind(this),
         dayClick: this.dayClick.bind(this),
         select : this.eventClick.bind(this),
         eventClick: function(calEvent, jsEvent, view){
               console.log('Evento eventClick');
         },
-        events: [
-          {
-            title: 'All Day Event',
-            start: '2017-09-01'
-          },
-          {
-            title: 'Long Event',
-            start: '2017-09-07',
-            end: '2017-09-10'
-          },
-          {
-            id: 999,
-            title: 'Repeating Event',
-            start: '2017-09-09T16:00:00'
-          },
-          {
-            id: 999,
-            title: 'Repeating Event',
-            start: '2017-09-16T16:00:00'
-          },
-          {
-            title: 'Conference',
-            start: '2017-09-11',
-            end: '2017-09-13'
-          },
-          {
-            title: 'Meeting',
-            start: '2017-09-12T10:30:00',
-            end: '2017-09-12T11:45:00'
-          },
-          {
-            title: 'Lunch',
-            start: '2017-09-12T10:15:00'
-          },
-          {
-            title: 'Meeting',
-            start: '2017-09-12T14:30:00'
-          },
-          {
-            title: 'Happy Hour',
-            start: '2017-09-12T17:30:00'
-          },
-          {
-            title: 'Dinner',
-            start: '2017-09-12T20:00:00'
-          },
-          {
-            title: 'Birthday Party',
-            start: '2017-09-13T07:00:00'
-          },
-          {
-            title: 'Click for Google',
-            url: 'http://google.com/',
-            start: '2017-09-28'
-          }
-        ]
+        events: this.loadEvents.bind(this)
+  
       };
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController ,private database: AngularFireDatabase) {
+      this.turnosList = this.database.list('turnos');
+  }
 
+  private eventDrop( event, delta, revertFunc, jsEvent, ui, view ){
+      console.log('Drop el event: '+event);
+  }
+
+  private loadEvents(start, end, timezone, callback){
+      
+      callback(this.events$);  
+          
+                
   }
 
   private dayClick(date, jsEvent, view){
@@ -101,7 +63,7 @@ export class HomePage {
   private eventClick(start, end, allDay){
           //alert('Seleccionado');
             console.log('Seleccionado');
-            
+
   }
 
   volverFecha(){
@@ -110,6 +72,23 @@ export class HomePage {
   }
 
   ngAfterViewInit(){
+      this.turnosList.subscribe(items=>{
+              
+              while (this.events$.length>0){
+                this.events$.pop();
+
+              }
+              items.forEach(element => {
+                this.events$.push({
+                  title:element.title,
+                  start:element.start,
+                  end: element.end
+                }); 
+              });
+              this.myCalendar.fullCalendar( 'refetchEvents' );
+              
+          
+      });  
 
   }
 

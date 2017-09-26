@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-list',
@@ -26,6 +27,10 @@ export class ListPage {
         icon: this.icons[Math.floor(Math.random() * this.icons.length)]
       });
     }
+  }
+
+  volverTurnos(){
+    this.navCtrl.push(HomePage);
   }
 
   itemTapped(event, item) {
