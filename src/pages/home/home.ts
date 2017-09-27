@@ -43,7 +43,9 @@ export class HomePage {
   }
 
   private eventDrop( event, delta, revertFunc, jsEvent, ui, view ){
-      console.log('Drop el event: '+event);
+      console.log('Drop el event title: '+event.title+' id: '+event.id);
+      
+      console.log('Drop event start: '+event.start.format());
   }
 
   private loadEvents(start, end, timezone, callback){
@@ -79,7 +81,9 @@ export class HomePage {
 
               }
               items.forEach(element => {
+                
                 this.events$.push({
+                  id: element.$key,
                   title:element.title,
                   start:element.start,
                   end: element.end
