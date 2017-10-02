@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {CalendarComponent} from "ap-angular2-fullcalendar/src/calendar/calendar";
 import { ListPage } from "../list/list";
+import { AddTurnoPage } from "../add-turno/add-turno";
 import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 
 @Component({
@@ -56,9 +57,11 @@ export class HomePage {
   }
 
   private dayClick(date, jsEvent, view){
-     console.log('Fecha: '+date);
+     
      this.selectedDay = date;
-     this.navCtrl.push(ListPage);
+
+     this.navCtrl.push(AddTurnoPage,{date:date
+        ,dateFormat:date.locale('es').format('L'),hora:date.format('LT')});
 
   }
 

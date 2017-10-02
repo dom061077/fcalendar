@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule} from 'angularfire2/database';
+import { AddTurnoPage } from '../pages/add-turno/add-turno';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -18,6 +19,7 @@ import { FIREBASE_CREDENTIALS } from './firebase.credentials';
     CalendarComponent,
     MyApp,
     HomePage,
+    AddTurnoPage,
     ListPage
   ],
   imports: [
@@ -30,7 +32,8 @@ import { FIREBASE_CREDENTIALS } from './firebase.credentials';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    AddTurnoPage
   ],
   providers: [
     StatusBar,
