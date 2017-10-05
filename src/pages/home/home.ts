@@ -77,6 +77,7 @@ export class HomePage {
   }
 
   ngAfterViewInit(){
+      
       this.turnosList.subscribe(items=>{
               
               while (this.events$.length>0){

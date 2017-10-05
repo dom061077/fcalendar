@@ -19,6 +19,9 @@ export class AddTurnoPage {
   date:any;
   dateFormat:any;
   hora:any;
+  $keyPaciente:string;
+  apellidoNombre:string;
+  dni:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams
       ,public autocompleteService:AutocompletePacienteServiceProvider) {

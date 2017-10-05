@@ -18,13 +18,20 @@ export class AutocompletePacienteServiceProvider implements AutoCompleteService 
   pacientesList=[];
   constructor(private http:Http, private database: AngularFireDatabase ) {
      // this.pacientesList = this.database.list('pacientes');
-      this.database.list('pacientes').subscribe(items=>{
-            items.forEach(element => {
-              this.pacientesList.push({
-                apellidoNombre:element.apellido+', '+element.nombre
+       this.database.list('pacientes',{
+            /*query:{
+                startAt: keyword,
+                endAt: keyword+'\uf8ff'
+            }*/
+          }
+        ).subscribe(items=>{
+          items.forEach(element => {
+            this.pacientesList.push({
+              apellidoNombre:element.apellido+' '+element.nombre,
+              //$key: element.
             });
-        });
-      });
+          });
+        });  
 
   }
 
@@ -36,10 +43,14 @@ export class AutocompletePacienteServiceProvider implements AutoCompleteService 
           return result.json()
             .filter(item => item.name.toLowerCase().startsWith(keyword.toLowerCase()) )
         });*/
-        
-      
-      
+
+        /*while (this.pacientesList.length>0){
+          this.pacientesList.pop();
+
+        }*/
+          
       return JSON.parse(JSON.stringify(this.pacientesList)).filter(item => item.apellidoNombre.toLowerCase().startsWith(keyword.toLowerCase()) );
+      
       
 
   }
