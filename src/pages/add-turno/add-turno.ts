@@ -29,6 +29,11 @@ export class AddTurnoPage {
 
   }
 
+  itemSelected(event){
+      console.log(event);
+  }
+
+
   ionViewDidLoad() {
     
   }

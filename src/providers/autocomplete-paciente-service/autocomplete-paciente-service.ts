@@ -13,13 +13,22 @@ import {AngularFireDatabase} from 'angularfire2/database';
 */
 @Injectable()
 export class AutocompletePacienteServiceProvider implements AutoCompleteService  {
-  
-
-  constructor(private database: AngularFireDatabase ) {
+  labelAttribute = "apellidoNombre";
+  pacientes:any;
+  pacientesList=[];
+  constructor(private http:Http, private database: AngularFireDatabase ) {
      // this.pacientesList = this.database.list('pacientes');
+      this.database.list('pacientes').subscribe(items=>{
+            items.forEach(element => {
+              this.pacientesList.push({
+                apellidoNombre:element.apellido+', '+element.nombre
+            });
+        });
+      });
+
   }
 
-  async getResults(keyword:string) {
+   getResults(keyword:string) {
     /*return this.http.get("https://restcountries.eu/rest/v1/name/"+keyword)
       .map(
         result =>
@@ -27,16 +36,11 @@ export class AutocompletePacienteServiceProvider implements AutoCompleteService 
           return result.json()
             .filter(item => item.name.toLowerCase().startsWith(keyword.toLowerCase()) )
         });*/
-        console.log('keyword: '+keyword);
-      result:Query;
-      result=this.database.database.ref('/pacientes').orderByChild('apellido')
-        .startAt(keyword).endAt(keyword+'\uf8ff')
-        .on('child_added',function(paciente){
-            
-
-        });
+        
       
-      return "";
+      
+      return JSON.parse(JSON.stringify(this.pacientesList)).filter(item => item.apellidoNombre.toLowerCase().startsWith(keyword.toLowerCase()) );
+      
 
   }
 

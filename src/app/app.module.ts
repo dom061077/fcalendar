@@ -9,12 +9,14 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import {CalendarComponent} from "ap-angular2-fullcalendar/src/calendar/calendar";
+import { HttpModule } from '@angular/http';
 import { AutoCompleteModule } from 'ionic2-auto-complete';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FIREBASE_CREDENTIALS } from './firebase.credentials';
 import { AutocompletePacienteServiceProvider } from '../providers/autocomplete-paciente-service/autocomplete-paciente-service';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { AutocompletePacienteServiceProvider } from '../providers/autocomplete-p
   imports: [
     BrowserModule,
     AutoCompleteModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(FIREBASE_CREDENTIALS)
@@ -41,6 +44,7 @@ import { AutocompletePacienteServiceProvider } from '../providers/autocomplete-p
   providers: [
     StatusBar,
     SplashScreen,
+    
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AutocompletePacienteServiceProvider
   ]
