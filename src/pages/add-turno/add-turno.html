@@ -14,6 +14,7 @@
 
 
 <ion-content padding>
+        <ion-auto-complete [dataProvider]="autocompleteService" ></ion-auto-complete>
     <ion-list> 
         <ion-item> 
             <ion-label>Fecha del Turno: {{dateFormat}}    </ion-label>
@@ -31,9 +32,7 @@
         </ion-item>
         <ion-item>
             <ion-label>Paciente:</ion-label>
-        </ion-item>
-        <ion-item>
             
-        </ion-item> 
+        </ion-item>
     </ion-list>  
 </ion-content>
