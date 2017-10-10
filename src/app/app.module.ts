@@ -18,6 +18,7 @@ import { FIREBASE_CREDENTIALS } from './firebase.credentials';
 import { AutocompletePacienteServiceProvider } from '../providers/autocomplete-paciente-service/autocomplete-paciente-service';
 
 
+
 @NgModule({
   declarations: [
     CalendarComponent,

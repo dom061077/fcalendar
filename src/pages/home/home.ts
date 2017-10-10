@@ -3,7 +3,9 @@ import { NavController } from 'ionic-angular';
 import {CalendarComponent} from "ap-angular2-fullcalendar/src/calendar/calendar";
 import { ListPage } from "../list/list";
 import { AddTurnoPage } from "../add-turno/add-turno";
-import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
+import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
+import {  Globals } from '../../app/globals'
+
 
 @Component({
   selector: 'page-home',
@@ -22,7 +24,7 @@ export class HomePage {
 				right: 'month,agendaWeek,agendaDay',
         center: 'title'
 			},      
-       slotDuration: '00:15:00',
+       slotDuration: Globals.slotDuration,
         selectable: true,
         selectHelper: true,
         height: 'parent',
@@ -77,7 +79,7 @@ export class HomePage {
   }
 
   ngAfterViewInit(){
-      
+      console.log('Slot duration: '+Globals.slotDuration);
       this.turnosList.subscribe(items=>{
               
               while (this.events$.length>0){
