@@ -16,6 +16,7 @@ import { AutocompletePacienteServiceProvider  } from '../../providers/autocomple
   templateUrl: 'add-turno.html',
 })
 export class AddTurnoPage {
+  idTurno:any;
   date:any;
   dateFormat:any;
   hora:any;
@@ -25,6 +26,7 @@ export class AddTurnoPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams
       ,public autocompleteService:AutocompletePacienteServiceProvider) {
+      this.idTurno = navParams.get('id');
       this.date = navParams.get('date');
       this.dateFormat = navParams.get('dateFormat');
       this.hora = navParams.get('hora');
@@ -33,7 +35,7 @@ export class AddTurnoPage {
   }
 
   itemSelected(event){
-      console.log(event);
+      //this.$keyPaciente = evet.
   }
 
 

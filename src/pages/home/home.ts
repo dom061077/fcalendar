@@ -61,8 +61,9 @@ export class HomePage {
   private dayClick(date, jsEvent, view){
      
      this.selectedDay = date;
+     console.log('id evento: '+date)
 
-     this.navCtrl.push(AddTurnoPage,{date:date
+     this.navCtrl.push(AddTurnoPage,{id:date.id,date:date
         ,dateFormat:date.locale('es').format('L'),hora:date.format('LT')});
 
   }
