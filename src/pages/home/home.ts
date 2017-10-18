@@ -29,7 +29,7 @@ export class HomePage {
         selectHelper: true,
         height: 'parent',
         fixedWeekCount : false,
-        defaultDate: '2017-09-12',
+        defaultDate: new Date().toISOString(),
         editable: true,
         eventLimit: true, // allow "more" link when too many events
         eventDrop: this.eventDrop.bind(this),
@@ -61,7 +61,7 @@ export class HomePage {
   private dayClick(date, jsEvent, view){
      
      this.selectedDay = date;
-     console.log('id evento: '+date)
+     
 
      this.navCtrl.push(AddTurnoPage,{id:date.id,date:date
         ,dateFormat:date.locale('es').format('L'),hora:date.format('LT')});

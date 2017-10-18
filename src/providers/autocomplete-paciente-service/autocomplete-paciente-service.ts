@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import {AngularFireDatabase} from 'angularfire2/database';
 
 
+
 /*
   Generated class for the AutocompletePacienteServiceProvider provider.
 
@@ -14,7 +15,6 @@ import {AngularFireDatabase} from 'angularfire2/database';
 @Injectable()
 export class AutocompletePacienteServiceProvider implements AutoCompleteService  {
   labelAttribute = "apellidoNombre";
-  pacientes:any;
   pacientesList=[];
   constructor(private http:Http, private database: AngularFireDatabase ) {
      // this.pacientesList = this.database.list('pacientes');
@@ -27,8 +27,11 @@ export class AutocompletePacienteServiceProvider implements AutoCompleteService 
         ).subscribe(items=>{
           items.forEach(element => {
             this.pacientesList.push({
-              apellidoNombre:element.apellido+' '+element.nombre,
-              //$key: element.
+              apellidoNombre:element.apellido+' '+element.nombre+' ('+element.dni+') ',
+              $key: element.$key,
+              nombre: element.nombre,
+              apellido: element.apellido,
+              dni: element.dni
             });
           });
         });  
