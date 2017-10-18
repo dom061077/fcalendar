@@ -84,11 +84,10 @@ export class AddTurnoPage {
             start: this.endDate.toString(),
             title: this.apellidoNombre,
             paciente:{
-                this.$keyPaciente:{
+                    key:this.$keyPaciente,
                     apellido:this.apellido,
                     nombre: this.nombre,
                     dni: this.dni
-                }
             }
 
       });
