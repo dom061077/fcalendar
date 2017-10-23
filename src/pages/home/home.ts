@@ -88,7 +88,7 @@ export class HomePage {
 
               }
               items.forEach(element => {
-                
+                console.log(element.paciente);
                 this.events$.push({
                   id: element.$key,
                   title:element.title,

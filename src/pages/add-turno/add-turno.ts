@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AutocompletePacienteServiceProvider  } from '../../providers/autocomplete-paciente-service/autocomplete-paciente-service';
 import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
+import {FormGroup, FormBuilder, FormControl, Validators} from "@angular/forms";
 
 
 /**
@@ -16,7 +17,8 @@ import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database'
   selector: 'page-add-turno',
   templateUrl: 'add-turno.html',
 })
-export class AddTurnoPage {
+export class AddTurnoPage implements OnInit {
+  formAdd: FormGroup;
   turnos : FirebaseListObservable<any[]>;
   idTurno:any;
   date:any;
@@ -32,7 +34,8 @@ export class AddTurnoPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams
       ,public autocompleteService:AutocompletePacienteServiceProvider
-      ,private database: AngularFireDatabase) {
+      ,private database: AngularFireDatabase
+      ,public formBuilder: FormBuilder  )  {
       this.turnos = database.list('turnos');
       this.idTurno = navParams.get('id');
       this.date = navParams.get('date');
@@ -72,25 +75,31 @@ export class AddTurnoPage {
       console.log('Date: '+this.date);
       console.log('Minuto de fecha seleccionada: '+this.date.minute());
       console.log('Date sin minutos sumados: '+this.date.toString());
-      this.endDate = this.date;
+      this.endDate = this.date.clone();
       this.duracion = this.duracion * 1;
       var minutos:number = this.date.minute() + this.duracion;
       console.log('Duración en minutos: '+minutos);
       this.endDate.minutes(minutos);
 
-      console.log('Date con minutos sumados: '+this.endDate.toString());
-      this.turnos.push({
-            end: this.date.toString(),
-            start: this.endDate.toString(),
-            title: this.apellidoNombre,
-            paciente:{
-                    key:this.$keyPaciente,
-                    apellido:this.apellido,
-                    nombre: this.nombre,
-                    dni: this.dni
-            }
+      console.log('Date con minutos sumados: '+this.endDate.format());
+      console.log('Format del Moment: '+this.date.format());
+      let turnoAgregado = this.turnos.push({
+            end: this.endDate.format(),
+            start: this.date.format() ,
+            title: this.apellidoNombre
+      });
+      turnoAgregado.child('paciente/'+this.$keyPaciente).set(
+            {apellido:this.apellido,nombre:this.nombre,dni:this.dni}
+        );
+  }
+
+  ngOnInit():any{
+//https://forum.ionicframework.com/t/forms-just-can-find-a-working-example/63453/2      
+      this.formAdd = this.formBuilder.group({
+        $keyPaciente  
 
       });
+
   }
 
 }
