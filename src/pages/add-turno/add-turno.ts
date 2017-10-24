@@ -108,7 +108,6 @@ export class AddTurnoPage implements OnInit {
 //https://forum.ionicframework.com/t/forms-just-can-find-a-working-example/63453/2      
       this.formAdd = this.formBuilder.group({
         //'pacienteId': ['',[Validators.required]],
-          'pacienteId' : ['', Validators.required],
           'duracion'   : ['', [Validators.required, this.pacienteValidator.bind(this)]]
       });
 
