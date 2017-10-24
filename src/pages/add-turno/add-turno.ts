@@ -2,7 +2,7 @@ import { OnInit, Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AutocompletePacienteServiceProvider  } from '../../providers/autocomplete-paciente-service/autocomplete-paciente-service';
 import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
-import {FormGroup, FormBuilder, FormControl, Validators} from "@angular/forms";
+import {FormGroup, FormBuilder, FormControl, Validators,ReactiveFormsModule  } from "@angular/forms";
 
 
 /**
@@ -31,6 +31,7 @@ export class AddTurnoPage implements OnInit {
   apellido:string;
   nombre:string;
   dni:string;
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams
       ,public autocompleteService:AutocompletePacienteServiceProvider
@@ -55,6 +56,7 @@ export class AddTurnoPage implements OnInit {
   */ 
   itemSelected(event){
       this.$keyPaciente = event.$key;
+      this.formAdd.controls['duracion'].setValue(event.$key);
       console.log('key de paciente: '+this.$keyPaciente);
       this.apellido = event.apellido;
       this.apellidoNombre = event.apellidoNombre,
@@ -71,7 +73,9 @@ export class AddTurnoPage implements OnInit {
   }
 
   confirmar(){
-      console.log('Duracion: '+this.duracion);
+      console.log('Confirmar evento');
+      console.log('Duración: '+this.formAdd.controls['duracion'].value);
+      /*console.log('Duracion: '+this.duracion);
       console.log('Date: '+this.date);
       console.log('Minuto de fecha seleccionada: '+this.date.minute());
       console.log('Date sin minutos sumados: '+this.date.toString());
@@ -91,15 +95,25 @@ export class AddTurnoPage implements OnInit {
       turnoAgregado.child('paciente/'+this.$keyPaciente).set(
             {apellido:this.apellido,nombre:this.nombre,dni:this.dni}
         );
+        */
+  }
+
+  pacienteValidator(control: FormControl): {[s: string]: boolean} {
+    if (!this.$keyPaciente) {
+      return {invalidDuracion: true};
+    }
   }
 
   ngOnInit():any{
 //https://forum.ionicframework.com/t/forms-just-can-find-a-working-example/63453/2      
       this.formAdd = this.formBuilder.group({
-        $keyPaciente  
-
+        //'pacienteId': ['',[Validators.required]],
+          'pacienteId' : ['', Validators.required],
+          'duracion'   : ['', [Validators.required, this.pacienteValidator.bind(this)]]
       });
 
   }
+
+
 
 }

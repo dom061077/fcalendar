@@ -14,8 +14,11 @@
 
 
 <ion-content padding>
-    <form [fromGroup]="formAdd" (ngSubmit)="onSubmit()">
-            <ion-auto-complete formControlName='pacienteId' (itemSelected)="itemSelected($event)" [dataProvider]="autocompleteService" ></ion-auto-complete>
+    <form [formGroup] =  "formAdd"  (ngSubmit)="confirmar()">
+   
+            
+            <ion-auto-complete   (itemSelected)="itemSelected($event)" [dataProvider]="autocompleteService" >
+            </ion-auto-complete>
             <ion-list> 
                 <ion-item> 
                     <ion-label>D.N.I: {{dni}}    </ion-label>
@@ -29,17 +32,26 @@
                 </ion-item>  
                 <ion-item>
                     <ion-label>Duración del Turno en minutos:</ion-label>
-                    <ion-select [(ngModel)]="duracion">
+                    <ion-select formControlName="duracion" >
                         <ion-option value=15>15</ion-option>
                         <ion-option value=30>30</ion-option>
                         <ion-option value=60>60</ion-option>
                     </ion-select>
                 </ion-item>
                 <ion-item>
-                    <button ion-button (click)="confirmar()" [color]="myColor" [block]=true [large]=true [round]="isRound">
+                    <button ion-button [disabled]="!formAdd.valid"   [color]="myColor" [block]=true [large]=true [round]="isRound">
                             Confirmar
                     </button>    
                 </ion-item>    
+                    <!-- ion-item>
+                        <ion-label color="primary">Inline Label</ion-label>
+                        <ion-input placeholder="Text Input"></ion-input>
+                      </ion-item>
+                    
+                      <ion-item>
+                        <ion-label color="primary" fixed>Fixed Label</ion-label>
+                        <ion-input type="tel" placeholder="Tel Input"></ion-input>
+                      </ion-item-->                
             </ion-list>  
-    </form>>            
+    </form>            
 </ion-content>

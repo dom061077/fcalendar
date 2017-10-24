@@ -16,7 +16,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FIREBASE_CREDENTIALS } from './firebase.credentials';
 import { AutocompletePacienteServiceProvider } from '../providers/autocomplete-paciente-service/autocomplete-paciente-service';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -33,7 +33,9 @@ import { AutocompletePacienteServiceProvider } from '../providers/autocomplete-p
     HttpModule,
     IonicModule.forRoot(MyApp),
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(FIREBASE_CREDENTIALS)
+    AngularFireModule.initializeApp(FIREBASE_CREDENTIALS),
+    FormsModule,
+    ReactiveFormsModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
