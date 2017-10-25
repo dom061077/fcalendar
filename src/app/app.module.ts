@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule} from 'angularfire2/database';
 import { AddTurnoPage } from '../pages/add-turno/add-turno';
+import { PacientesPage } from '../pages/pacientes/pacientes';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -25,7 +26,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MyApp,
     HomePage,
     AddTurnoPage,
-    ListPage
+    ListPage,
+    PacientesPage
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MyApp,
     HomePage,
     ListPage,
-    AddTurnoPage
+    AddTurnoPage,
+    PacientesPage
   ],
   providers: [
     StatusBar,

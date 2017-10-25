@@ -4,7 +4,8 @@ import {CalendarComponent} from "ap-angular2-fullcalendar/src/calendar/calendar"
 import { ListPage } from "../list/list";
 import { AddTurnoPage } from "../add-turno/add-turno";
 import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
-import {  Globals } from '../../app/globals'
+import { Globals } from '../../app/globals'
+import * as moment from 'moment';
 
 
 @Component({
@@ -75,11 +76,15 @@ export class HomePage {
   }
 
   volverFecha(){
-    console.log('Volviendo a fecha: '+this.selectedDay);
-    this.myCalendar.fullCalendar('gotoDate','2017-10-06T17:00:00');
+
+      this.myCalendar.fullCalendar('gotoDate','2017-10-06T17:00:00');
   }
 
   ngAfterViewInit(){
+      const momento = moment();
+      momento.minutes(0);
+      console.log('Fecha de hoy: '+momento.format());
+      this.myCalendar.fullCalendar('gotoDate',momento.format());
       console.log('Slot duration: '+Globals.slotDuration);
       this.turnosList.subscribe(items=>{
               

@@ -1,8 +1,9 @@
 import { OnInit, Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AutocompletePacienteServiceProvider  } from '../../providers/autocomplete-paciente-service/autocomplete-paciente-service';
-import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
-import {FormGroup, FormBuilder, FormControl, Validators,ReactiveFormsModule  } from "@angular/forms";
+import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
+import { FormGroup, FormBuilder, FormControl, Validators,ReactiveFormsModule  } from "@angular/forms";
+import { HomePage } from '../home/home'
 
 
 /**
@@ -56,7 +57,7 @@ export class AddTurnoPage implements OnInit {
   */ 
   itemSelected(event){
       this.$keyPaciente = event.$key;
-      this.formAdd.controls['duracion'].setValue(event.$key);
+      //this.formAdd.controls['duracion'].setValue(event.$key);
       console.log('key de paciente: '+this.$keyPaciente);
       this.apellido = event.apellido;
       this.apellidoNombre = event.apellidoNombre,
@@ -73,20 +74,11 @@ export class AddTurnoPage implements OnInit {
   }
 
   confirmar(){
-      console.log('Confirmar evento');
-      console.log('Duración: '+this.formAdd.controls['duracion'].value);
-      /*console.log('Duracion: '+this.duracion);
-      console.log('Date: '+this.date);
-      console.log('Minuto de fecha seleccionada: '+this.date.minute());
-      console.log('Date sin minutos sumados: '+this.date.toString());
       this.endDate = this.date.clone();
-      this.duracion = this.duracion * 1;
+      this.duracion = this.formAdd.controls['duracion'].value * 1;
       var minutos:number = this.date.minute() + this.duracion;
-      console.log('Duración en minutos: '+minutos);
       this.endDate.minutes(minutos);
 
-      console.log('Date con minutos sumados: '+this.endDate.format());
-      console.log('Format del Moment: '+this.date.format());
       let turnoAgregado = this.turnos.push({
             end: this.endDate.format(),
             start: this.date.format() ,
@@ -95,7 +87,7 @@ export class AddTurnoPage implements OnInit {
       turnoAgregado.child('paciente/'+this.$keyPaciente).set(
             {apellido:this.apellido,nombre:this.nombre,dni:this.dni}
         );
-        */
+      this.navCtrl.push(HomePage) ;
   }
 
   pacienteValidator(control: FormControl): {[s: string]: boolean} {
@@ -108,10 +100,16 @@ export class AddTurnoPage implements OnInit {
 //https://forum.ionicframework.com/t/forms-just-can-find-a-working-example/63453/2      
       this.formAdd = this.formBuilder.group({
         //'pacienteId': ['',[Validators.required]],
-          'duracion'   : ['', [Validators.required, this.pacienteValidator.bind(this)]]
+          'duracion'   : ['', [Validators.required]]
       });
 
   }
+
+  isValid(field: string) {
+    console.log('isValid: '+field);
+    let formField = this.formAdd.get(field);
+    return formField.valid || formField.pristine;
+  }  
 
 
 
