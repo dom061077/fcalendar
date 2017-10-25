@@ -35,7 +35,8 @@ export class PacientesPage {
                   orderByChild: 'name',
                   limitToLast: 1
               }
-          }).subscribe(data => {
+          });
+          this.items.subscribe(data => {
               // Found the last key
               if (data.length > 0) {
                   data.forEach(element => {
