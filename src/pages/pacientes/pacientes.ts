@@ -21,80 +21,66 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class PacientesPage {
   items: FirebaseListObservable<any>
 
-  //limit:BehaviorSubject<number> = new BehaviorSubject<number>(10); // import 'rxjs/BehaviorSubject';
-  
-  lastKey: string;
-  queryable: boolean = true;
-  limit:number=20;
+
+   limit:BehaviorSubject<number> = new BehaviorSubject<number>(20); // import 'rxjs/BehaviorSubject';
+   lastKey: string='';
+   queryable: boolean = true;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams
           ,private database: AngularFireDatabase ) {
 
-          this.items=this.database.list('/pacientes' , {
-              query: {
-                  orderByChild: 'apellido',
-                  limitToLast: 1
-              }
-          });
-          this.items.subscribe(data => {
-              // Found the last key
-              if (data.length > 0) {
-                  data.forEach(element => {
-                    this.lastKey = element.$key;
-                  });
-                  
-              } else {
-                  this.lastKey = '';
-              }
-              console.log('Ultimo key: '+this.lastKey);
-          });
 
-         this.items = this.database.list('/pacientes', {
+            
+            // asyncronously find the last item in the list
+            this.database.list('/pacientes' , {
                 query: {
                     orderByChild: 'apellido',
-                    limitToFirst: this.limit
+                    limitToLast: 1
                 }
-          });
+            }).subscribe((data) => {
+                // Found the last key
+                data.forEach(element=>{ 
+                    this.lastKey = element.$key;
+
+                });
+                if (data.length > 0) {
+                    
+                } else {
+                    this.lastKey = '';
+                }
+            });
+            
+            this.items = this.database.list('/pacientes', {
+                query: {
+                    orderByChild: 'apellido'
+                    ,limitToFirst: this.limit
+                }
+            });
+            
+            this.items.subscribe( (data) => {
+                if (data.length > 0) {
+                    // If the last key in the list equals the last key in the database
+                    if (data[data.length - 1].$key === this.lastKey) {
+                        this.queryable = false;
+                    } else {
+                        this.queryable = true;
+                    }
+                }
+            });          
           
           
-          
-          this.items.subscribe( (data) => {
-              console.log('Pasando por el subscribe de la consulta');
-              if (data.length > 0) {
-                  // If the last key in the list equals the last key in the database
-                  if (data[data.length - 1].$key === this.lastKey) {
-                      this.queryable = false;
-                  } else {
-                      this.queryable = true;
-                  }
-              }
-          });  
   }
+
+  scrolled(): void {
+        if (this.queryable) {
+            this.limit.next( this.limit.getValue() + 20);
+        }
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PacientesPage');
   }
 
-  doInfinite(): Promise<any> {
-    console.log('Begin async operation');
-
-    return new Promise((resolve) => {
-      this.limit = this.limit + 10;
-        
-      //setTimeout(() => {
-        if (this.queryable){
-            this.items = this.database.list('/pacientes', {
-                query: {
-                    orderByChild: 'apellido',
-                    limitToFirst: this.limit
-                }
-            });      
-            console.log('Ingresando a infinite load. Limit: '+this.limit);
-            resolve();
-        }
-        //}, 300);
-    })
-  }  
 
 }
