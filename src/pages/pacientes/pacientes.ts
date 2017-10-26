@@ -20,11 +20,12 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 })
 export class PacientesPage {
   items: FirebaseListObservable<any>
+
   //limit:BehaviorSubject<number> = new BehaviorSubject<number>(10); // import 'rxjs/BehaviorSubject';
   
   lastKey: string;
   queryable: boolean = true;
-  limit:number;
+  limit:number=20;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams
@@ -32,7 +33,7 @@ export class PacientesPage {
 
           this.items=this.database.list('/pacientes' , {
               query: {
-                  orderByChild: 'name',
+                  orderByChild: 'apellido',
                   limitToLast: 1
               }
           });
@@ -46,26 +47,29 @@ export class PacientesPage {
               } else {
                   this.lastKey = '';
               }
+              console.log('Ultimo key: '+this.lastKey);
           });
 
-          const list = this.database.list('/pacientes', {
+         this.items = this.database.list('/pacientes', {
                 query: {
-                    orderByChild: 'name',
+                    orderByChild: 'apellido',
                     limitToFirst: this.limit
                 }
           });
           
           
-          /*list.subscribe( (data) => {
+          
+          this.items.subscribe( (data) => {
+              console.log('Pasando por el subscribe de la consulta');
               if (data.length > 0) {
                   // If the last key in the list equals the last key in the database
-                  if (data[data.length - 1].$key === lastKey) {
-                      queryable = false;
+                  if (data[data.length - 1].$key === this.lastKey) {
+                      this.queryable = false;
                   } else {
-                      queryable = true;
+                      this.queryable = true;
                   }
               }
-          });  */       
+          });  
   }
 
   ionViewDidLoad() {
@@ -76,12 +80,20 @@ export class PacientesPage {
     console.log('Begin async operation');
 
     return new Promise((resolve) => {
-      setTimeout(() => {
-
-        this.limit = this.limit + 10;
-        console.log('Async operation has ended');
-        resolve();
-      }, 500);
+      this.limit = this.limit + 10;
+        
+      //setTimeout(() => {
+        if (this.queryable){
+            this.items = this.database.list('/pacientes', {
+                query: {
+                    orderByChild: 'apellido',
+                    limitToFirst: this.limit
+                }
+            });      
+            console.log('Ingresando a infinite load. Limit: '+this.limit);
+            resolve();
+        }
+        //}, 300);
     })
   }  
 
