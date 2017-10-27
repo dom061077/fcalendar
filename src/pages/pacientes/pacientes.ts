@@ -22,6 +22,8 @@ export class PacientesPage {
   items: FirebaseListObservable<any>
 
 
+
+ 
    limit:BehaviorSubject<number> = new BehaviorSubject<number>(20); // import 'rxjs/BehaviorSubject';
    lastKey: string='';
    queryable: boolean = true;
@@ -72,10 +74,15 @@ export class PacientesPage {
           
   }
 
-  scrolled(): void {
-        if (this.queryable) {
-            this.limit.next( this.limit.getValue() + 20);
-        }
+  scrolled(infiniteScroll){
+        console.log('scrolling');
+        //setTimeout(() => {
+            if (this.queryable) {
+                this.limit.next( this.limit.getValue() + 10);
+            }
+            infiniteScroll.complete();
+        //}, 500);
+        console.log('Fin de scrolling');            
     }
 
   ionViewDidLoad() {
