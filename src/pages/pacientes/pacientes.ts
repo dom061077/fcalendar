@@ -25,6 +25,8 @@ export class PacientesPage {
 
  
    limit:BehaviorSubject<number> = new BehaviorSubject<number>(20); // import 'rxjs/BehaviorSubject';
+   startat:BehaviorSubject<string> = new BehaviorSubject<string>('');
+   endat:BehaviorSubject<string> = new BehaviorSubject<string>('');
    lastKey: string='';
    queryable: boolean = true;
 
@@ -57,6 +59,8 @@ export class PacientesPage {
                 query: {
                     orderByChild: 'apellido'
                     ,limitToFirst: this.limit
+                    ,startAt : this.startat
+                    ,endAt : this.endat
                 }
             });
             
@@ -89,5 +93,16 @@ export class PacientesPage {
     console.log('ionViewDidLoad PacientesPage');
   }
 
+
+  onInput(event){
+        console.log('Filtro: '+event.target.value);
+        this.startat.next(event.target.value);
+        this.endat.next(event.target.value+'\uf8ff');
+        return true;
+  }
+
+  onCancel(event){
+        return false;
+  }
 
 }

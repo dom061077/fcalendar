@@ -43,7 +43,19 @@ export class HomePage {
   
       };
   constructor(public navCtrl: NavController ,private database: AngularFireDatabase) {
-      this.turnosList = this.database.list('turnos');
+      const momento = moment();
+      console.log('Momento de filtro antes: '+momento.format());
+      momento.month(9).date(25).minute(0).second(0).hour(0);
+      console.log('Momento de filtro: '+momento.format());
+
+      this.turnosList = this.database.list('turnos',{
+          query:{
+              orderByChild:'start',
+              startAt: momento.format()
+              
+              
+          }
+      });
   }
 
   private eventDrop( event, delta, revertFunc, jsEvent, ui, view ){
@@ -83,9 +95,8 @@ export class HomePage {
   ngAfterViewInit(){
       const momento = moment();
       momento.minutes(0);
-      console.log('Fecha de hoy: '+momento.format());
       this.myCalendar.fullCalendar('gotoDate',momento.format());
-      console.log('Slot duration: '+Globals.slotDuration);
+
       this.turnosList.subscribe(items=>{
               
               while (this.events$.length>0){
@@ -93,6 +104,7 @@ export class HomePage {
 
               }
               items.forEach(element => {
+                console.log(element.start);
                 this.events$.push({
                   id: element.$key,
                   title:element.title,
