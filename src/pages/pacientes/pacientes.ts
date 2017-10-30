@@ -59,10 +59,13 @@ export class PacientesPage {
                 query: {
                     orderByChild: 'apellido'
                     ,limitToFirst: this.limit
-                    ,startAt : 'MEDINA'//this.startat
-                    ,endAt : 'MEDINA\uf8ff'//this.endat
+                    ,startAt : this.startat
+                    ,endAt : this.endat
                 }
             });
+
+            this.startat.next('\uf8ff');
+            this.endat.next('\uf8ff');
             
             this.items.subscribe( (data) => {
                 if (data.length > 0) {
@@ -73,6 +76,7 @@ export class PacientesPage {
                         this.queryable = true;
                     }
                 }
+                console.log('Se TERMINO DE DESCARGAR EL LIST');
             });          
           
           
@@ -91,13 +95,17 @@ export class PacientesPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PacientesPage');
+    this.endat.next('');
+    this.startat.next('');
+
   }
 
 
   onInput(event){
         console.log('Filtro: '+event.target.value);
-        this.startat.next(event.target.value);
         this.endat.next(event.target.value+'\uf8ff');
+        this.startat.next(event.target.value);
+        
         return true;
   }
 
