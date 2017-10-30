@@ -59,8 +59,8 @@ export class PacientesPage {
                 query: {
                     orderByChild: 'apellido'
                     ,limitToFirst: this.limit
-                    ,startAt : 'MEDINA'//this.startat
-                    ,endAt : 'MEDINA\uf8ff'//this.endat
+                    ,startAt : this.startat
+                    ,endAt : this.endat
                 }
             });
             
