@@ -14,30 +14,64 @@
 
 
 <ion-content padding>
-    <ion-list>
-        <ion-item>
-            <ion-label>D.N.I:</ion-label>
-            <ion-input type="number" placeholder="Ingrese sólo números"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Apellido:</ion-label>
-            <ion-input placeholder="solo texto"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Nombre:</ion-label>
-            <ion-input placeholder="solo texto"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Fecha de Nacimiento:</ion-label>
-            <ion-datetime displayFormat="MM/DD/YYYY" 
-                cancelText="Cancelar" doneText="Aceptar"
-                [(ngModel)]="myDate"></ion-datetime>
-        </ion-item>        
-        <ion-item>
-            <ion-nav-buttons>
-                <ion-button>Guardar</ion-button>
-            </ion-nav-buttons>  
-        </ion-item>  
-    </ion-list> 
+                <ion-list>
+                    <ion-item>
+                        <ion-label>D.N.I:</ion-label>
+                        <ion-input type="number"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Apellido:</ion-label>
+                        <ion-input></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Nombre:</ion-label>
+                        <ion-input></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Fecha de Nacimiento:</ion-label>
+                        <ion-datetime displayFormat="MM/DD/YYYY" 
+                            cancelText="Cancelar" doneText="Aceptar"
+                            [(ngModel)]="myDate"></ion-datetime>
+                    </ion-item>
+                    
+                    <ion-item>
+                        <ion-label>Domicilio:</ion-label>
+                        <ion-input></ion-input>            
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>Provincia:</ion-label>
+                        <ion-input></ion-input>            
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Localidad:</ion-label>
+                        <ion-input></ion-input>            
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Código Postal:</ion-label>
+                        <ion-input></ion-input>            
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Teléfono:</ion-label>
+                        <ion-input></ion-input>            
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Sexo:</ion-label>
+                        <ion-select>
+                                <ion-option value="MASCULINO">Masculino</ion-option>
+                                <ion-option value="FEMENINO">Femenino</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                            <ion-label>Estado Civil:</ion-label>
+                            <ion-select>
+                                    <ion-option value="MASCULINO">Masculino</ion-option>
+                                    <ion-option value="FEMENINO">Femenino</ion-option>
+                            </ion-select>
+                    </ion-item>
+                        
+                        
+                </ion-list> 
+    <button ion-button full  round>Guardar</button>    
 
 </ion-content>
