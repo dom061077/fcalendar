@@ -1,0 +1,43 @@
+<!--
+  Generated template for the AddPacientePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Agregar un Paciente</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label>D.N.I:</ion-label>
+            <ion-input type="number" placeholder="Ingrese sólo números"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Apellido:</ion-label>
+            <ion-input placeholder="solo texto"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Nombre:</ion-label>
+            <ion-input placeholder="solo texto"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Fecha de Nacimiento:</ion-label>
+            <ion-datetime displayFormat="MM/DD/YYYY" 
+                cancelText="Cancelar" doneText="Aceptar"
+                [(ngModel)]="myDate"></ion-datetime>
+        </ion-item>        
+        <ion-item>
+            <ion-nav-buttons>
+                <ion-button>Guardar</ion-button>
+            </ion-nav-buttons>  
+        </ion-item>  
+    </ion-list> 
+
+</ion-content>

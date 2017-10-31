@@ -5,6 +5,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule} from 'angularfire2/database';
 import { AddTurnoPage } from '../pages/add-turno/add-turno';
 import { PacientesPage } from '../pages/pacientes/pacientes';
+import { AddPacientePage } from '../pages/add-paciente/add-paciente';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -27,7 +28,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomePage,
     AddTurnoPage,
     ListPage,
-    PacientesPage
+    PacientesPage,
+    AddPacientePage
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomePage,
     ListPage,
     AddTurnoPage,
-    PacientesPage
+    PacientesPage,
+    AddPacientePage
   ],
   providers: [
     StatusBar,

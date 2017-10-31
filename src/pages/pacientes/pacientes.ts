@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { AddPacientePage } from '../add-paciente/add-paciente';
 
 /**
  * Generated class for the PacientesPage page.
@@ -64,8 +65,6 @@ export class PacientesPage {
                 }
             });
 
-            this.startat.next('\uf8ff');
-            this.endat.next('\uf8ff');
             
             this.items.subscribe( (data) => {
                 if (data.length > 0) {
@@ -95,22 +94,27 @@ export class PacientesPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PacientesPage');
-    this.endat.next('');
-    this.startat.next('');
+    this.endat.next('\uf8ff');
+            this.startat.next('');
+            
 
   }
 
 
   onInput(event){
         console.log('Filtro: '+event.target.value);
-        this.endat.next(event.target.value+'\uf8ff');
-        this.startat.next(event.target.value);
+        this.endat.next(event.target.value.toUpperCase()+'\uf8ff');
+        this.startat.next(event.target.value.toUpperCase());
         
         return true;
   }
 
   onCancel(event){
         return false;
+  }
+
+  onAdd(){
+        this.navCtrl.push(AddPacientePage);      
   }
 
 }
