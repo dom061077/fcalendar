@@ -58,13 +58,11 @@ export class AddTurnoPage implements OnInit {
   itemSelected(event){
       this.$keyPaciente = event.$key;
       //this.formAdd.controls['duracion'].setValue(event.$key);
-      console.log('key de paciente: '+this.$keyPaciente);
       this.apellido = event.apellido;
       this.apellidoNombre = event.apellidoNombre,
       this.nombre = event.nombre;
       this.dni = event.dni;
 
-      console.log('Apellido y nombre seleccionado: '+this.apellidoNombre);
 
   }
 

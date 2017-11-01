@@ -19,6 +19,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { FIREBASE_CREDENTIALS } from './firebase.credentials';
 import { AutocompletePacienteServiceProvider } from '../providers/autocomplete-paciente-service/autocomplete-paciente-service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AutocompleteObrasocialServiceProvider } from '../providers/autocomplete-obrasocial-service/autocomplete-obrasocial-service';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SplashScreen,
     
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AutocompletePacienteServiceProvider
+    AutocompletePacienteServiceProvider,
+    AutocompleteObrasocialServiceProvider
   ]
 })
 export class AppModule {}

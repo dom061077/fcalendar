@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AutocompletePacienteServiceProvider  } from '../../providers/autocomplete-paciente-service/autocomplete-paciente-service';
+import { AutocompleteObrasocialServiceProvider } from '../../providers/autocomplete-obrasocial-service/autocomplete-obrasocial-service';
+import { FormGroup, FormBuilder, FormControl, Validators,ReactiveFormsModule  } from "@angular/forms";
 
 /**
  * Generated class for the AddPacientePage page.
@@ -15,14 +16,44 @@ import { AutocompletePacienteServiceProvider  } from '../../providers/autocomple
   templateUrl: 'add-paciente.html',
 })
 export class AddPacientePage {
-
+  formAdd: FormGroup;
+  provincia: any;
+  localidad: any;
+  obraSocial: any;
   constructor(public navCtrl: NavController, public navParams: NavParams
-          ,public autocompleteService:AutocompletePacienteServiceProvider
+          ,public autocompleteService:AutocompleteObrasocialServiceProvider
+          ,public formBuilder: FormBuilder
         ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddPacientePage');
   }
+
+  isValid(){
+      return this.formAdd.valid;
+  }
+
+
+  confirmar(){
+      
+  }
+
+  ngOnInit():any{
+    //https://forum.ionicframework.com/t/forms-just-can-find-a-working-example/63453/2      
+          this.formAdd = this.formBuilder.group({
+            //'pacienteId': ['',[Validators.required]],
+              'dni'   : ['', [Validators.required]],
+              'apellido'   : ['', [Validators.required]],
+              'nombre'   : ['', [Validators.required]],
+              'fechaNacimiento'   : ['', [Validators.required]],
+              'domicilio'   : ['', [Validators.required]],
+              'codigoPostal'   : ['', [Validators.required]],
+              'telefono'   : ['', [Validators.required]],
+              'sexo'   : ['', [Validators.required]],
+              'estadoCivil'   : ['', [Validators.required]]
+          });
+    
+  }  
 
 }
