@@ -69,7 +69,8 @@
                                     <ion-option value="FEMENINO">Femenino</ion-option>
                             </ion-select>
                     </ion-item>
-                        
+                            <ion-auto-complete [options]="{placeholder : 'Obra Social'}"  (itemSelected)="itemSelected($event)" [dataProvider]="autocompleteService" >
+                            </ion-auto-complete>
                         
                 </ion-list> 
     <button ion-button full  round>Guardar</button>    
