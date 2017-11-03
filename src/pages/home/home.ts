@@ -103,8 +103,9 @@ export class HomePage {
                 this.events$.pop();
 
               }
+              console.log('Antes de ingresar al foreach: ');
               items.forEach(element => {
-                console.log(element.start);
+                console.log('Start: '+element.start);
                 this.events$.push({
                   id: element.$key,
                   title:element.title,

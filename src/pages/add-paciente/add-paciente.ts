@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AutocompleteObrasocialServiceProvider } from '../../providers/autocomplete-obrasocial-service/autocomplete-obrasocial-service';
+import { AutocompleteProvinciaProvider } from '../../providers/autocomplete-provincia/autocomplete-provincia';
 import { FormGroup, FormBuilder, FormControl, Validators,ReactiveFormsModule  } from "@angular/forms";
 
 /**
@@ -22,6 +23,7 @@ export class AddPacientePage {
   obraSocial: any;
   constructor(public navCtrl: NavController, public navParams: NavParams
           ,public autocompleteService:AutocompleteObrasocialServiceProvider
+          ,public autocompleteProvicinaProv: AutocompleteProvinciaProvider
           ,public formBuilder: FormBuilder
         ) {
   }
