@@ -43,7 +43,9 @@ export class AddTurnoPage implements OnInit {
       this.date = navParams.get('date');
       this.dateFormat = navParams.get('dateFormat');
       this.hora = navParams.get('hora');
+      console.log('Duracion en constructor: '+navParams.get('duracion'));
       this.duracion = navParams.get('duracion');
+
       if(!this.idTurno){
           console.log('No tiene ID de turno');
       }
@@ -100,7 +102,8 @@ export class AddTurnoPage implements OnInit {
         //'pacienteId': ['',[Validators.required]],
           'duracion'   : ['', [Validators.required]]
       });
-
+      console.log('Duración: '+this.duracion);
+      this.formAdd.get('duracion').setValue(this.duracion);      
   }
 
   isValid(field: string) {

@@ -32,12 +32,13 @@
                     
                 </ion-item>  
                 <ion-item>
-                    <ion-label>Duración del Turno en minutos:</ion-label>
-                    <ion-select formControlName="duracion"  >
+                    <ion-label>Duración del Turno:</ion-label>
+                    <ion-input formControlName="duracion" type="number"></ion-input>
+                    <!--ion-select formControlName="duracion"  >
                         <ion-option value=15>15</ion-option>
                         <ion-option value=30>30</ion-option>
                         <ion-option value=60>60</ion-option>
-                    </ion-select>
+                    </ion-select-->
                 </ion-item>
                 <ion-item>
                     <button ion-button [disabled]="!formAdd.valid"   [color]="myColor" [block]=true [large]=true [round]="isRound">
