@@ -20,6 +20,7 @@ import { FIREBASE_CREDENTIALS } from './firebase.credentials';
 import { AutocompletePacienteServiceProvider } from '../providers/autocomplete-paciente-service/autocomplete-paciente-service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteObrasocialServiceProvider } from '../providers/autocomplete-obrasocial-service/autocomplete-obrasocial-service';
+import { TurnosServiceProvider } from '../providers/turnos-service/turnos-service';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { AutocompleteObrasocialServiceProvider } from '../providers/autocomplete
     
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AutocompletePacienteServiceProvider,
-    AutocompleteObrasocialServiceProvider
+    AutocompleteObrasocialServiceProvider,
+    TurnosServiceProvider
   ]
 })
 export class AppModule {}

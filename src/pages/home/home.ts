@@ -6,6 +6,7 @@ import { AddTurnoPage } from "../add-turno/add-turno";
 import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 import { Globals } from '../../app/globals'
 import * as moment from 'moment';
+import { TurnosServiceProvider  } from '../../providers/turnos-service/turnos-service';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class HomePage {
         editable: true,
         eventLimit: true, // allow "more" link when too many events
         eventDrop: this.eventDrop.bind(this),
-        dayClick: this.dayClick.bind(this),
+        //dayClick: this.dayClick.bind(this),
         select : this.eventClick.bind(this),
         eventClick: function(calEvent, jsEvent, view){
               console.log('Evento eventClick');
@@ -42,7 +43,10 @@ export class HomePage {
         events: this.loadEvents.bind(this)
   
       };
-  constructor(public navCtrl: NavController ,private database: AngularFireDatabase) {
+  constructor(public navCtrl: NavController 
+        ,private database: AngularFireDatabase
+        ,private turnosService: TurnosServiceProvider
+        ) {
       const momento = moment();
       console.log('Momento de filtro antes: '+momento.format());
       momento.month(9).date(25).minute(0).second(0).hour(0);
@@ -60,30 +64,31 @@ export class HomePage {
 
   private eventDrop( event, delta, revertFunc, jsEvent, ui, view ){
       console.log('Drop el event title: '+event.title+' id: '+event.id);
-      
+      this.turnosService.moverTurno(event.id,event.start,event.end);
       console.log('Drop event start: '+event.start.format());
   }
 
   private loadEvents(start, end, timezone, callback){
-      
       callback(this.events$);  
-          
-                
   }
 
   private dayClick(date, jsEvent, view){
-     
+     console.log('Event dayclick');     
      this.selectedDay = date;
-     
-
      this.navCtrl.push(AddTurnoPage,{id:date.id,date:date
+        ,duracion:Globals.duracion
         ,dateFormat:date.locale('es').format('L'),hora:date.format('LT')});
 
   }
 
   private eventClick(start, end, allDay){
-          //alert('Seleccionado');
-            console.log('Seleccionado');
+        console.log('Event eventClick');
+        var duracion:number=end.minutes() - start.minutes();
+        console.log('end.minute: '+end.minutes());
+        console.log('start.minute: '+start.minutes());
+        console.log('Duración: '+duracion);          
+          this.navCtrl.push(AddTurnoPage,{date:start,duracion:duracion
+            ,dateFormat:start.locale('es').format('L'),hora:start.format('LT')});
 
   }
 
