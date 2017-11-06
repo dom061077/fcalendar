@@ -28,6 +28,7 @@ export class PacientesPage {
    limit:BehaviorSubject<number> = new BehaviorSubject<number>(20); // import 'rxjs/BehaviorSubject';
    startat:BehaviorSubject<string> = new BehaviorSubject<string>('');
    endat:BehaviorSubject<string> = new BehaviorSubject<string>('');
+   endScroll:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
    lastKey: string='';
    queryable: boolean = true;
 
@@ -75,6 +76,7 @@ export class PacientesPage {
                         this.queryable = true;
                     }
                 }
+                this.endScroll.next(true);
                 console.log('Se TERMINO DE DESCARGAR EL LIST');
             });          
           
@@ -87,7 +89,9 @@ export class PacientesPage {
             if (this.queryable) {
                 this.limit.next( this.limit.getValue() + 10);
             }
-            infiniteScroll.complete();
+            while (!this.endScroll){
+                infiniteScroll.complete();
+            }
         //}, 500);
         console.log('Fin de scrolling');            
     }
