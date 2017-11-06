@@ -22,11 +22,12 @@ export class AddTurnoPage implements OnInit {
   formAdd: FormGroup;
   turnos : FirebaseListObservable<any[]>;
   idTurno:any;
-  date:any;
+  startDate:any;
   dateFormat:any;
   hora:any;
   duracion:number;
   endDate:any;
+  
   $keyPaciente:string;
   apellidoNombre:string;
   apellido:string;
@@ -40,7 +41,8 @@ export class AddTurnoPage implements OnInit {
       ,public formBuilder: FormBuilder  )  {
       this.turnos = database.list('turnos');
       this.idTurno = navParams.get('id');
-      this.date = navParams.get('date');
+      this.startDate = navParams.get('startDate');
+      this.endDate = navParams.get('endDate');
       this.dateFormat = navParams.get('dateFormat');
       this.hora = navParams.get('hora');
       console.log('Duracion en constructor: '+navParams.get('duracion'));
@@ -58,6 +60,7 @@ export class AddTurnoPage implements OnInit {
      en el autocomplete 
   */ 
   itemSelected(event){
+
       this.$keyPaciente = event.$key;
       //this.formAdd.controls['duracion'].setValue(event.$key);
       this.apellido = event.apellido;
@@ -74,14 +77,10 @@ export class AddTurnoPage implements OnInit {
   }
 
   confirmar(){
-      this.endDate = this.date.clone();
-      this.duracion = this.formAdd.controls['duracion'].value * 1;
-      var minutos:number = this.date.minute() + this.duracion;
-      this.endDate.minutes(minutos);
 
       let turnoAgregado = this.turnos.push({
             end: this.endDate.format(),
-            start: this.date.format() ,
+            start: this.startDate.format() ,
             title: this.apellidoNombre
       });
       turnoAgregado.child('paciente/'+this.$keyPaciente).set(
@@ -106,10 +105,15 @@ export class AddTurnoPage implements OnInit {
       this.formAdd.get('duracion').setValue(this.duracion);      
   }
 
-  isValid(field: string) {
-    console.log('isValid: '+field);
-    let formField = this.formAdd.get(field);
-    return formField.valid || formField.pristine;
+  isValid() {
+    
+    //let formField = this.formAdd.get('duracion');
+    //var valido=true;
+    //valido=formField.valid || formField.pristine;
+    if (!this.$keyPaciente)
+      return false;
+
+    return true;
   }  
 
 

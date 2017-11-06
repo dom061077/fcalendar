@@ -37,9 +37,7 @@ export class HomePage {
         eventDrop: this.eventDrop.bind(this),
         //dayClick: this.dayClick.bind(this),
         select : this.eventClick.bind(this),
-        eventClick: function(calEvent, jsEvent, view){
-              console.log('Evento eventClick');
-        },
+        eventResize: this.onEventResize.bind(this),
         events: this.loadEvents.bind(this)
   
       };
@@ -71,7 +69,12 @@ export class HomePage {
   private loadEvents(start, end, timezone, callback){
       callback(this.events$);  
   }
+ 
+  private onEventResize( event, delta, revertFunc, jsEvent, ui, view ){
+      this.turnosService.moverTurno(event.id,event.start,event.end);
+  }
 
+  
   private dayClick(date, jsEvent, view){
      console.log('Event dayclick');     
      this.selectedDay = date;
@@ -83,12 +86,7 @@ export class HomePage {
 
   private eventClick(start, end, allDay){
         console.log('Event eventClick');
-        var duracion:number=end.minutes() - start.minutes();
-        console.log('end.minute: '+end.minutes());
-        console.log('start.minute: '+start.minutes());
-        console.log('Duración: '+duracion);          
-          this.navCtrl.push(AddTurnoPage,{date:start,duracion:duracion
-            ,dateFormat:start.locale('es').format('L'),hora:start.format('LT')});
+          this.navCtrl.push(AddTurnoPage,{startDate:start,endDate:end});
 
   }
 

@@ -25,15 +25,15 @@
                 </ion-item>
                         
                 <ion-item> 
-                    <ion-label>Fecha del Turno: {{dateFormat}}    </ion-label>
+                    <ion-label>Fecha del Turno: {{startDate.locale('es').format('L')}}    </ion-label>
                 </ion-item>
                 <ion-item>
-                    <ion-label>Hora del Turno: {{hora}} </ion-label>            
+                    <ion-label>El Turno comienza a las: {{startDate.format('LT')}} </ion-label>            
                     
                 </ion-item>  
                 <ion-item>
-                    <ion-label>Duración del Turno:</ion-label>
-                    <ion-input formControlName="duracion" type="number"></ion-input>
+                    <ion-label>y termina a las: {{endDate.format('LT')}}</ion-label>
+                    <!--ion-input formControlName="duracion" type="number"></ion-input-->
                     <!--ion-select formControlName="duracion"  >
                         <ion-option value=15>15</ion-option>
                         <ion-option value=30>30</ion-option>
@@ -41,7 +41,7 @@
                     </ion-select-->
                 </ion-item>
                 <ion-item>
-                    <button ion-button [disabled]="!formAdd.valid"   [color]="myColor" [block]=true [large]=true [round]="isRound">
+                    <button ion-button [disabled]="!isValid()"   [color]="myColor" [block]=true [large]=true [round]="isRound">
                             Confirmar
                     </button>    
                 </ion-item>    
