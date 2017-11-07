@@ -1,9 +1,9 @@
 import {AutoCompleteService} from 'ionic2-auto-complete';
-import { Http } from '@angular/http';
+//import { Http } from '@angular/http';
 import {Injectable} from "@angular/core";
 import 'rxjs/add/operator/map';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import {AngularFireDatabase} from 'angularfire2/database';
+import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 
 
 
@@ -17,6 +17,8 @@ import {AngularFireDatabase} from 'angularfire2/database';
 export class AutocompletePacienteServiceProvider implements AutoCompleteService  {
   labelAttribute = "apellidoNombre";
   pacientesList=[];
+  items: FirebaseListObservable<any>
+  showSpinner:boolean=false;
 
    limit:BehaviorSubject<number> = new BehaviorSubject<number>(20); // import 'rxjs/BehaviorSubject';
    startat:BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -24,13 +26,16 @@ export class AutocompletePacienteServiceProvider implements AutoCompleteService 
    endScroll:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
    lastKey: string='';
    queryable: boolean = true;
+   infiniteScroll:any;
 
 
-  constructor(private http:Http, private database: AngularFireDatabase ) {
+  constructor( private database: AngularFireDatabase ) {
             this.database.list('/pacientes' , {
                 query: {
-                    orderByChild: 'apellido_nombre',
-                    limitToLast: 1
+                    orderByChild: 'apellido_nombre'
+                    ,limitToLast: 1
+                    ,startAt : this.startat
+                    ,endAt : this.endat                    
                 }
             }).subscribe((data) => {
                 // Found the last key
@@ -44,6 +49,39 @@ export class AutocompletePacienteServiceProvider implements AutoCompleteService 
                     this.lastKey = '';
                 }
             });
+            
+            this.items = this.database.list('/pacientes', {
+                query: {
+                    orderByChild: 'apellido_nombre'
+                    ,limitToFirst: this.limit
+                    ,startAt : this.startat
+                    ,endAt : this.endat
+                }
+            });
+
+            this.items.subscribe( (data) => {
+                if (data.length > 0) {
+                    // If the last key in the list equals the last key in the database
+                    if (data[data.length - 1].$key === this.lastKey) {
+                        this.queryable = false;
+                    } else {
+                        this.queryable = true;
+                    }
+                }
+
+                data.forEach(element => {
+                    //console.log('Obra social: '+element.descripcion);
+                    this.pacientesList.push({
+                      descripcion:element.descripcion,
+                      $key: element.$key
+                    });
+                  });
+                        
+                if (this.infiniteScroll)
+                    this.infiniteScroll.complete();
+                this.showSpinner = false;       
+                console.log('Se TERMINO DE DESCARGAR EL LIST');
+            });          
 
   }
 
@@ -60,6 +98,15 @@ export class AutocompletePacienteServiceProvider implements AutoCompleteService 
           this.pacientesList.pop();
 
         }*/
+        if(keyword){
+            this.endat.next(keyword.toUpperCase()+'\uf8ff');
+            this.startat.next(keyword.toUpperCase());
+            this.showSpinner = true;
+        }else{
+            this.showSpinner = true;
+            this.endat.next('\uf8ff');
+            this.startat.next('');
+        }        
           
       return JSON.parse(JSON.stringify(this.pacientesList)).filter(item => item.apellidoNombre.toLowerCase().startsWith(keyword.toLowerCase()) );
       

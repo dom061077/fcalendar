@@ -14,20 +14,25 @@
 
 
 <ion-content>
+  
   <ion-searchbar
     [(ngModel)]="myInput"
     [showCancelButton]="true"
     (ionInput)="onInput($event)"
     (ionCancel)="onCancel($event)">
 </ion-searchbar>
-   <ion-list>
-     <ion-item *ngFor="let item of items | async">
-          {{item.apellido_nombre}} ({{item.dni}})
-     </ion-item>
-   </ion-list>
-  
+
+      <ion-list>
+        <ion-spinner name="circles" *ngIf="showSpinner" >  </ion-spinner>  
+          <ion-item *ngFor="let item of items | async">
+                {{item.apellido_nombre}} ({{item.dni}})
+          </ion-item>
+        
+      </ion-list>
+
    <ion-infinite-scroll (ionInfinite)="scrolled($event)">
      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más datos..."></ion-infinite-scroll-content>
    </ion-infinite-scroll>
+  
   
   </ion-content>

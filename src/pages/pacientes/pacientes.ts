@@ -23,14 +23,14 @@ export class PacientesPage {
   items: FirebaseListObservable<any>
 
 
-
+  showSpinner:boolean=false;
  
    limit:BehaviorSubject<number> = new BehaviorSubject<number>(20); // import 'rxjs/BehaviorSubject';
    startat:BehaviorSubject<string> = new BehaviorSubject<string>('');
    endat:BehaviorSubject<string> = new BehaviorSubject<string>('');
-   endScroll:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
    lastKey: string='';
    queryable: boolean = true;
+   infiniteScroll:any;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams
@@ -41,8 +41,10 @@ export class PacientesPage {
             // asyncronously find the last item in the list
             this.database.list('/pacientes' , {
                 query: {
-                    orderByChild: 'apellido_nombre',
-                    limitToLast: 1
+                    orderByChild: 'apellido_nombre'
+                    ,limitToLast: 1
+                    ,startAt : this.startat
+                    ,endAt : this.endat                    
                 }
             }).subscribe((data) => {
                 // Found the last key
@@ -66,7 +68,6 @@ export class PacientesPage {
                 }
             });
 
-            
             this.items.subscribe( (data) => {
                 if (data.length > 0) {
                     // If the last key in the list equals the last key in the database
@@ -76,7 +77,9 @@ export class PacientesPage {
                         this.queryable = true;
                     }
                 }
-                this.endScroll.next(true);
+                if (this.infiniteScroll)
+                    this.infiniteScroll.complete();
+                this.showSpinner = false;       
                 console.log('Se TERMINO DE DESCARGAR EL LIST');
             });          
           
@@ -84,17 +87,11 @@ export class PacientesPage {
   }
 
   scrolled(infiniteScroll){
-        console.log('scrolling');
-        setTimeout(() => {
+            this.infiniteScroll=infiniteScroll;
             if (this.queryable) {
                 this.limit.next( this.limit.getValue() + 10);
-            }
-            while (!this.endScroll){
-                
-            }
-            infiniteScroll.complete();
-        }, 500);
-        console.log('Fin de scrolling');            
+            }else
+                infiniteScroll.complete();
     }
 
   ionViewDidLoad() {
@@ -110,7 +107,9 @@ export class PacientesPage {
         if(event.target.value){
             this.endat.next(event.target.value.toUpperCase()+'\uf8ff');
             this.startat.next(event.target.value.toUpperCase());
+            this.showSpinner = true;
         }else{
+            this.showSpinner = true;
             this.endat.next('\uf8ff');
             this.startat.next('');
         }
@@ -120,6 +119,8 @@ export class PacientesPage {
   }
 
   onCancel(event){
+        console.log('onCancel event');
+        this.showSpinner = true;
         return false;
   }
 
