@@ -41,7 +41,7 @@ export class PacientesPage {
             // asyncronously find the last item in the list
             this.database.list('/pacientes' , {
                 query: {
-                    orderByChild: 'apellido',
+                    orderByChild: 'apellido_nombre',
                     limitToLast: 1
                 }
             }).subscribe((data) => {
@@ -59,7 +59,7 @@ export class PacientesPage {
             
             this.items = this.database.list('/pacientes', {
                 query: {
-                    orderByChild: 'apellido'
+                    orderByChild: 'apellido_nombre'
                     ,limitToFirst: this.limit
                     ,startAt : this.startat
                     ,endAt : this.endat
@@ -85,14 +85,15 @@ export class PacientesPage {
 
   scrolled(infiniteScroll){
         console.log('scrolling');
-        //setTimeout(() => {
+        setTimeout(() => {
             if (this.queryable) {
                 this.limit.next( this.limit.getValue() + 10);
             }
             while (!this.endScroll){
-                infiniteScroll.complete();
+                
             }
-        //}, 500);
+            infiniteScroll.complete();
+        }, 500);
         console.log('Fin de scrolling');            
     }
 
@@ -106,9 +107,14 @@ export class PacientesPage {
 
 
   onInput(event){
-        console.log('Filtro: '+event.target.value);
-        this.endat.next(event.target.value.toUpperCase()+'\uf8ff');
-        this.startat.next(event.target.value.toUpperCase());
+        if(event.target.value){
+            this.endat.next(event.target.value.toUpperCase()+'\uf8ff');
+            this.startat.next(event.target.value.toUpperCase());
+        }else{
+            this.endat.next('\uf8ff');
+            this.startat.next('');
+        }
+
         
         return true;
   }

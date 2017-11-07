@@ -2,6 +2,7 @@ import {AutoCompleteService} from 'ionic2-auto-complete';
 import { Http } from '@angular/http';
 import {Injectable} from "@angular/core";
 import 'rxjs/add/operator/map';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {AngularFireDatabase} from 'angularfire2/database';
 
 
@@ -16,25 +17,33 @@ import {AngularFireDatabase} from 'angularfire2/database';
 export class AutocompletePacienteServiceProvider implements AutoCompleteService  {
   labelAttribute = "apellidoNombre";
   pacientesList=[];
+
+   limit:BehaviorSubject<number> = new BehaviorSubject<number>(20); // import 'rxjs/BehaviorSubject';
+   startat:BehaviorSubject<string> = new BehaviorSubject<string>('');
+   endat:BehaviorSubject<string> = new BehaviorSubject<string>('');
+   endScroll:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+   lastKey: string='';
+   queryable: boolean = true;
+
+
   constructor(private http:Http, private database: AngularFireDatabase ) {
-     // this.pacientesList = this.database.list('pacientes');
-       this.database.list('pacientes',{
-            /*query:{
-                startAt: keyword,
-                endAt: keyword+'\uf8ff'
-            }*/
-          }
-        ).subscribe(items=>{
-          items.forEach(element => {
-            this.pacientesList.push({
-              apellidoNombre:element.apellido+' '+element.nombre+' ('+element.dni+') ',
-              $key: element.$key,
-              nombre: element.nombre,
-              apellido: element.apellido,
-              dni: element.dni
+            this.database.list('/pacientes' , {
+                query: {
+                    orderByChild: 'apellido_nombre',
+                    limitToLast: 1
+                }
+            }).subscribe((data) => {
+                // Found the last key
+                data.forEach(element=>{ 
+                    this.lastKey = element.$key;
+
+                });
+                if (data.length > 0) {
+                    
+                } else {
+                    this.lastKey = '';
+                }
             });
-          });
-        });  
 
   }
 
