@@ -17,47 +17,47 @@
         <form [formGroup] =  "formAdd"  (ngSubmit)="confirmar()">    
                 <ion-list>
                     <ion-item>
-                        <ion-label>D.N.I:</ion-label>
+                        <ion-label floating>D.N.I:</ion-label>
                         <ion-input formControlName="dni" type="number"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label>Apellido:</ion-label>
+                        <ion-label floating>Apellido:</ion-label>
                         <ion-input formControlName="apellido"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label>Nombre:</ion-label>
+                        <ion-label floating>Nombre:</ion-label>
                         <ion-input formControlName="nombre"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label>Fecha de Nacimiento:</ion-label>
+                        <ion-label floating>Fecha de Nacimiento:</ion-label>
                         <ion-datetime formControlName="fechaNacimiento" displayFormat="MM/DD/YYYY" 
                             cancelText="Cancelar" doneText="Aceptar"
                             [(ngModel)]="myDate"></ion-datetime>
                     </ion-item>
                     
                     <ion-item>
-                        <ion-label>Domicilio:</ion-label>
+                        <ion-label floating>Domicilio:</ion-label>
                         <ion-input formControlName="domicilio"></ion-input>            
                     </ion-item>
-                    <ion-auto-complete style="z-index: 999999999;" [options]="{placeholder : 'Provincia'}"   [dataProvider]="autocompleteProvicinaProv"></ion-auto-complete>
-                    <ion-auto-complete [options]="{placeholder : 'Localidad'}"   [dataProvider]="autocompleteService" ></ion-auto-complete>
+                    <ion-auto-complete style="z-index: 999999999;" [options]="{placeholder : 'Provincia'}"   [dataProvider]="autocompleteProvinciaProv"></ion-auto-complete>
+                    <ion-auto-complete [options]="{placeholder : 'Localidad'}"   [dataProvider]="autocompleteLocProv" ></ion-auto-complete>
                     <ion-item>
-                        <ion-label>Código Postal:</ion-label>
+                        <ion-label floating>Código Postal:</ion-label>
                         <ion-input formControlName="codigoPostal"></ion-input>            
                     </ion-item>
                     <ion-item>
-                        <ion-label>Teléfono:</ion-label>
+                        <ion-label floating>Teléfono:</ion-label>
                         <ion-input formControlName="telefono"></ion-input>            
                     </ion-item>
                     <ion-item>
-                        <ion-label>Sexo:</ion-label>
+                        <ion-label floating>Sexo:</ion-label>
                         <ion-select formControlName="sexo">
                                 <ion-option value="MASCULINO">Masculino</ion-option>
                                 <ion-option value="FEMENINO">Femenino</ion-option>
                         </ion-select>
                     </ion-item>
                     <ion-item>
-                            <ion-label>Estado Civil:</ion-label>
+                            <ion-label floating>Estado Civil:</ion-label>
                             <ion-select formControlName="estadoCivil">
                                     <ion-option value="MASCULINO">Masculino</ion-option>
                                     <ion-option value="FEMENINO">Femenino</ion-option>
@@ -67,6 +67,6 @@
                             </ion-auto-complete>
                         
                 </ion-list> 
-    <button ion-button full  round>Guardar</button>    
+    <button ion-button full  round (click)="confirmar()">Guardar</button>    
         </form>        
 </ion-content>

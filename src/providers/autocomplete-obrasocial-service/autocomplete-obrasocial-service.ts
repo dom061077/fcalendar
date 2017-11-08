@@ -18,7 +18,7 @@ export class AutocompleteObrasocialServiceProvider implements AutoCompleteServic
   obrasocialList=[];
   constructor(private http:Http, private database: AngularFireDatabase ) {
      // this.pacientesList = this.database.list('pacientes');
-       this.database.list('obrasocial',{
+       this.database.list('obras_sociales',{
             /*query:{
                 startAt: keyword,
                 endAt: keyword+'\uf8ff'
@@ -28,7 +28,7 @@ export class AutocompleteObrasocialServiceProvider implements AutoCompleteServic
           items.forEach(element => {
             //console.log('Obra social: '+element.descripcion);
             this.obrasocialList.push({
-              descripcion:element.descripcion,
+              descripcion:element.nombre,
               $key: element.$key
             });
           });
@@ -49,8 +49,8 @@ export class AutocompleteObrasocialServiceProvider implements AutoCompleteServic
           this.pacientesList.pop();
 
         }*/
-          
-      return JSON.parse(JSON.stringify(this.obrasocialList)).filter(item => item.descripcion.toLowerCase().startsWith(keyword.toLowerCase()) );
+      console.log('evento: getResults');
+      return JSON.parse(JSON.stringify(this.obrasocialList)).filter(item => item.descripcion.toLowerCase().indexOf(keyword.toLowerCase())>-1 );
       
       
 
