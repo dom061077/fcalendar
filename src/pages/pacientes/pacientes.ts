@@ -128,4 +128,9 @@ export class PacientesPage {
         this.navCtrl.push(AddPacientePage);      
   }
 
+  onClickItem(item){
+        console.log('Item seleccionado: '+item);
+  }
+
+
 }

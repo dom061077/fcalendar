@@ -68,11 +68,15 @@ export class AutocompletePacienteServiceProvider implements AutoCompleteService 
                         this.queryable = true;
                     }
                 }
+                while(this.pacientesList.length){
+                    this.pacientesList.pop();
 
+                }
                 data.forEach(element => {
                     //console.log('Obra social: '+element.descripcion);
                     this.pacientesList.push({
-                      descripcion:element.descripcion,
+                      apellidoNombre:element.apellido_nombre,
+                      dni:element.dni,
                       $key: element.$key
                     });
                   });
@@ -107,9 +111,7 @@ export class AutocompletePacienteServiceProvider implements AutoCompleteService 
             this.endat.next('\uf8ff');
             this.startat.next('');
         }        
-          
-      return JSON.parse(JSON.stringify(this.pacientesList)).filter(item => item.apellidoNombre.toLowerCase().startsWith(keyword.toLowerCase()) );
-      
+      return JSON.parse(JSON.stringify(this.pacientesList)).filter(item => item.apellidoNombre.toLowerCase().startsWith(keyword.toLowerCase()) );    
       
 
   }

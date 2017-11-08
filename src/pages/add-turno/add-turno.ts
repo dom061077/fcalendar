@@ -84,7 +84,7 @@ export class AddTurnoPage implements OnInit {
             title: this.apellidoNombre
       });
       turnoAgregado.child('paciente/'+this.$keyPaciente).set(
-            {apellido:this.apellido,nombre:this.nombre,dni:this.dni}
+            {apellido_nombre:this.apellidoNombre,dni:this.dni}
         );
       this.navCtrl.push(HomePage) ;
   }

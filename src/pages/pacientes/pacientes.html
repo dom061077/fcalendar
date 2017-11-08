@@ -24,9 +24,11 @@
 
       <ion-list>
         <ion-spinner name="circles" *ngIf="showSpinner" >  </ion-spinner>  
-          <ion-item *ngFor="let item of items | async">
-                {{item.apellido_nombre}} ({{item.dni}})
-          </ion-item>
+               
+          <button ion-item icon-end *ngFor="let item of items | async" (click)="onClickItem(item)">
+            
+            {{item.apellido_nombre}} ({{item.dni}})
+          </button>                
         
       </ion-list>
 
