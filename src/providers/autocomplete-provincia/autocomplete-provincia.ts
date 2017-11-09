@@ -30,10 +30,9 @@ export class AutocompleteProvinciaProvider implements AutoCompleteService {
   constructor( private database: AngularFireDatabase) {
         console.log('Autocomlete provincia service constructor');
         this.database.list('provincias_localidades',{
-            /*query:{
-                startAt: keyword,
-                endAt: keyword+'\uf8ff'
-            }*/
+            query:{
+              orderByChild: 'nombre_provincia'
+            }
           }
         ).subscribe(items=>{
           console.log('Subscribe provincia');

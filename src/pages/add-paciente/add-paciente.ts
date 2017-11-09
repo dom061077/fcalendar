@@ -4,6 +4,7 @@ import { AutocompleteObrasocialServiceProvider } from '../../providers/autocompl
 import { AutocompleteProvinciaProvider } from '../../providers/autocomplete-provincia/autocomplete-provincia';
 import { AutocompleteLocalidadProvider  } from '../../providers/autocomplete-localidad/autocomplete-localidad';
 import { FormGroup, FormBuilder, FormControl, Validators,ReactiveFormsModule  } from "@angular/forms";
+import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 
 /**
  * Generated class for the AddPacientePage page.
@@ -19,7 +20,7 @@ import { FormGroup, FormBuilder, FormControl, Validators,ReactiveFormsModule  } 
 })
 export class AddPacientePage {
   formAdd: FormGroup;
-  provincia: any;
+  provinciaKey: any;
   localidad: any;
   obraSocial: any;
   constructor(public navCtrl: NavController, public navParams: NavParams
@@ -27,6 +28,7 @@ export class AddPacientePage {
           ,public autocompleteProvinciaProv: AutocompleteProvinciaProvider
           ,public autocompleteLocProv: AutocompleteLocalidadProvider
           ,public formBuilder: FormBuilder
+          ,private database: AngularFireDatabase
         ) {
   }
 
@@ -38,9 +40,29 @@ export class AddPacientePage {
       return this.formAdd.valid;
   }
 
+  provinciaSelected(event){
+      this.provinciaKey = event.$key;
+      console.log('Provincia key seleccionada: '+this.provinciaKey);
+      this.autocompleteLocProv.setProvinciaId(this.provinciaKey);
+  }
+
 
   confirmar(){
-      this.autocompleteLocProv.setProvinciaId('11XX');
+    this.database.list('provincias_localidades',{
+      query:{
+        orderByChild: 'nombre_provincia'
+        ,startAt : 'S'
+        ,endAt : 'S\uf8ff'
+
+      }
+    }
+  ).subscribe(items=>{
+    console.log('Subscribe provincia');
+    items.forEach(element => {
+      console.log('forEach sobre provincia: '+element.nombre_provincia);
+    });
+  });  
+
   }
 
   ngOnInit():any{

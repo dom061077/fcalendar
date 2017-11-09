@@ -13,7 +13,7 @@ import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database
 */
 @Injectable()
 export class AutocompleteLocalidadProvider implements AutoCompleteService {
-  labelAttribute = "apellidoNombre";
+  labelAttribute = "nombre";
   localidadList=[];
   items: FirebaseListObservable<any>
   showSpinner:boolean=false;
@@ -33,9 +33,11 @@ export class AutocompleteLocalidadProvider implements AutoCompleteService {
   }
 
   setProvinciaId(provinciaId:string){
+      while(this.localidadList.length){
+          this.localidadList.pop();
+      }
       this.database.list('provincias_localidades/'+provinciaId+'/localidad').subscribe((item)=>{
           item.forEach(element=>{
-              console.log('Agregando: '+element.key+' localidad nombre: '+element.localidad_nombre);
               this.localidadList.push({
                 nombre:element.localidad_nombre,
                 $key:element.$key
