@@ -10,6 +10,7 @@ import { AddPacientePage } from '../pages/add-paciente/add-paciente';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { LoginPage } from '../pages/login/login';
 import {CalendarComponent} from "ap-angular2-fullcalendar/src/calendar/calendar";
 import { HttpModule } from '@angular/http';
 import { AutoCompleteModule } from 'ionic2-auto-complete';
@@ -17,12 +18,14 @@ import { AutoCompleteModule } from 'ionic2-auto-complete';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FIREBASE_CREDENTIALS } from './firebase.credentials';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AutocompletePacienteServiceProvider } from '../providers/autocomplete-paciente-service/autocomplete-paciente-service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteObrasocialServiceProvider } from '../providers/autocomplete-obrasocial-service/autocomplete-obrasocial-service';
 import { AutocompleteProvinciaProvider } from '../providers/autocomplete-provincia/autocomplete-provincia';
 import { AutocompleteLocalidadProvider } from '../providers/autocomplete-localidad/autocomplete-localidad';
 import { TurnosServiceProvider } from '../providers/turnos-service/turnos-service';
+import { IonicPageModule } from "ionic-angular";
 
 
 @NgModule({
@@ -33,7 +36,8 @@ import { TurnosServiceProvider } from '../providers/turnos-service/turnos-servic
     AddTurnoPage,
     ListPage,
     PacientesPage,
-    AddPacientePage
+    AddPacientePage//,
+    //LoginPage
   ],
   imports: [
     BrowserModule,
@@ -42,8 +46,10 @@ import { TurnosServiceProvider } from '../providers/turnos-service/turnos-servic
     IonicModule.forRoot(MyApp),
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(FIREBASE_CREDENTIALS),
+    AngularFireAuthModule,
     FormsModule,
     ReactiveFormsModule,
+    IonicPageModule.forChild(HomePage)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -52,7 +58,8 @@ import { TurnosServiceProvider } from '../providers/turnos-service/turnos-servic
     ListPage,
     AddTurnoPage,
     PacientesPage,
-    AddPacientePage
+    AddPacientePage//,
+    //LoginPage
   ],
   providers: [
     StatusBar,
