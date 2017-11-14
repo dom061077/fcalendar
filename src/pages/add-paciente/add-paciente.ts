@@ -37,7 +37,7 @@ export class AddPacientePage {
   }
 
   isValid(){
-      return this.formAdd.valid;
+      return !this.formAdd.valid;
   }
 
   provinciaSelected(event){
@@ -64,6 +64,8 @@ export class AddPacientePage {
   });  
 
   }
+
+
 
   ngOnInit():any{
     //https://forum.ionicframework.com/t/forms-just-can-find-a-working-example/63453/2      

@@ -67,6 +67,6 @@
                             </ion-auto-complete>
                         
                 </ion-list> 
-    <button ion-button full  round (click)="confirmar()">Guardar</button>    
+    <button ion-button full  round [disabled]="isValid()" (click)="confirmar()">Guardar</button>    
         </form>        
 </ion-content>
