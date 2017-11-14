@@ -10,7 +10,8 @@ import { HomePage  } from '../home/home';
   templateUrl: 'login.html',
 })
 
-//https://chriztalk.com/ionic-3-and-firebase-authentication/
+//https://chriztalk.com/ionic-3-and-firebase-authentication/ pagina para ver codigo de autenticacion
+//https://reviblog.net/tag/ionic-3-firebase/
 
 export class LoginPage {
 
