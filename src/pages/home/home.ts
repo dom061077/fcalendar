@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, IonicPage  } from 'ionic-angular';
 import {CalendarComponent} from "ap-angular2-fullcalendar/src/calendar/calendar";
 import { ListPage } from "../list/list";
 import { AddTurnoPage } from "../add-turno/add-turno";
@@ -8,7 +8,7 @@ import { Globals } from '../../app/globals'
 import * as moment from 'moment';
 import { TurnosServiceProvider  } from '../../providers/turnos-service/turnos-service';
 
-
+//@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
