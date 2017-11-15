@@ -6,6 +6,7 @@ import { AngularFireDatabaseModule} from 'angularfire2/database';
 import { AddTurnoPage } from '../pages/add-turno/add-turno';
 import { PacientesPage } from '../pages/pacientes/pacientes';
 import { AddPacientePage } from '../pages/add-paciente/add-paciente';
+import { PerfilPage } from '../pages/perfil/perfil';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -36,8 +37,8 @@ import { IonicPageModule } from "ionic-angular";
     AddTurnoPage,
     ListPage,
     PacientesPage,
-    AddPacientePage//,
-    //LoginPage
+    AddPacientePage,
+    PerfilPage
   ],
   imports: [
     BrowserModule,
@@ -58,8 +59,8 @@ import { IonicPageModule } from "ionic-angular";
     ListPage,
     AddTurnoPage,
     PacientesPage,
-    AddPacientePage//,
-    //LoginPage
+    AddPacientePage,
+    PerfilPage
   ],
   providers: [
     StatusBar,
