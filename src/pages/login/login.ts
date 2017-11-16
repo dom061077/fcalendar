@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from "../../models/user";
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage  } from '../home/home';
+import { AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -17,7 +18,7 @@ export class LoginPage {
 
   user = {} as User;
 
-  constructor(private afAuth: AngularFireAuth,
+  constructor(public alertCtrl: AlertController,private afAuth: AngularFireAuth,
     public navCtrl: NavController, public navParams: NavParams) {
   }
  
@@ -29,7 +30,12 @@ export class LoginPage {
       }  
     }
     catch (e) {
-      console.error(e);
+          let alert = this.alertCtrl.create({
+              title: 'Error',
+              subTitle: 'Usuario o contraseña incorrectos',
+              buttons: ['OK']
+            });
+          alert.present();
     }
   }
  

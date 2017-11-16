@@ -17,7 +17,7 @@
     <form [formGroup] =  "formAdd"  (ngSubmit)="confirmar()">
    
             
-            <ion-auto-complete   (itemSelected)="itemSelected($event)" [dataProvider]="autocompleteService" >
+            <ion-auto-complete [options]="{placeholder : 'Apellido y Nombre'}"   (itemSelected)="itemSelected($event)" [dataProvider]="autocompleteService" >
             </ion-auto-complete>
             <ion-list> 
                 <ion-item> 

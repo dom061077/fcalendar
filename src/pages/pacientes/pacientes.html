@@ -16,6 +16,7 @@
 <ion-content>
   
   <ion-searchbar
+    [placeholder]="ApellidoNombre"
     [(ngModel)]="myInput"
     [showCancelButton]="true"
     (ionInput)="onInput($event)"
