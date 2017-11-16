@@ -5,6 +5,7 @@ import { AutocompleteProvinciaProvider } from '../../providers/autocomplete-prov
 import { AutocompleteLocalidadProvider  } from '../../providers/autocomplete-localidad/autocomplete-localidad';
 import { FormGroup, FormBuilder, FormControl, Validators,ReactiveFormsModule  } from "@angular/forms";
 import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
+import { PacienteItem } from '../../models/paciente/paciente-item';
 
 /**
  * Generated class for the AddPacientePage page.
@@ -23,6 +24,7 @@ export class AddPacientePage {
   provinciaKey: any;
   localidad: any;
   obraSocial: any;
+  pacienteItem={} as PacienteItem;
   constructor(public navCtrl: NavController, public navParams: NavParams
           ,public autocompleteService:AutocompleteObrasocialServiceProvider
           ,public autocompleteProvinciaProv: AutocompleteProvinciaProvider
@@ -30,6 +32,7 @@ export class AddPacientePage {
           ,public formBuilder: FormBuilder
           ,private database: AngularFireDatabase
         ) {
+
   }
 
   ionViewDidLoad() {
@@ -37,7 +40,7 @@ export class AddPacientePage {
   }
 
   isValid(){
-      return this.formAdd.valid;
+      return !this.formAdd.valid;
   }
 
   provinciaSelected(event){
@@ -48,22 +51,10 @@ export class AddPacientePage {
 
 
   confirmar(){
-    this.database.list('provincias_localidades',{
-      query:{
-        orderByChild: 'nombre_provincia'
-        ,startAt : 'S'
-        ,endAt : 'S\uf8ff'
-
-      }
-    }
-  ).subscribe(items=>{
-    console.log('Subscribe provincia');
-    items.forEach(element => {
-      console.log('forEach sobre provincia: '+element.nombre_provincia);
-    });
-  });  
-
+      console.log('Documento: '+this.pacienteItem.dni);
   }
+
+
 
   ngOnInit():any{
     //https://forum.ionicframework.com/t/forms-just-can-find-a-working-example/63453/2      
@@ -72,12 +63,12 @@ export class AddPacientePage {
               'dni'   : ['', [Validators.required]],
               'apellido'   : ['', [Validators.required]],
               'nombre'   : ['', [Validators.required]],
-              'fechaNacimiento'   : ['', [Validators.required]],
-              'domicilio'   : ['', [Validators.required]],
-              'codigoPostal'   : ['', [Validators.required]],
-              'telefono'   : ['', [Validators.required]],
-              'sexo'   : ['', [Validators.required]],
-              'estadoCivil'   : ['', [Validators.required]]
+              'fechaNacimiento'   : [''],
+              'domicilio'   : [''],
+              'codigoPostal'   : [''],
+              'telefono'   : [''],
+              'sexo'   : [''],
+              'estadoCivil'   : ['']
           });
     
   }  
