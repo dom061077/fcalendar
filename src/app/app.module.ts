@@ -27,6 +27,7 @@ import { AutocompleteProvinciaProvider } from '../providers/autocomplete-provinc
 import { AutocompleteLocalidadProvider } from '../providers/autocomplete-localidad/autocomplete-localidad';
 import { TurnosServiceProvider } from '../providers/turnos-service/turnos-service';
 import { IonicPageModule } from "ionic-angular";
+import { PacienteServiceProvider } from '../providers/paciente-service/paciente-service';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { IonicPageModule } from "ionic-angular";
     AutocompleteObrasocialServiceProvider,
     AutocompleteProvinciaProvider,
     AutocompleteLocalidadProvider,
-    TurnosServiceProvider
+    TurnosServiceProvider,
+    PacienteServiceProvider
   ]
 })
 export class AppModule {}
