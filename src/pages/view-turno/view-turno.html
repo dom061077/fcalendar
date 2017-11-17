@@ -14,5 +14,46 @@
 
 
 <ion-content padding>
+        <ion-list> 
+          <ion-item> 
+              <ion-label>D.N.I: {{turnoItem.dni}}    </ion-label>
+          </ion-item>
+
+          <ion-item> 
+            <ion-label>Apellido y Nombre: {{turnoItem.apellido} {turnoItem.nombre}}    </ion-label>
+        </ion-item>
+        
+                  
+          <ion-item> 
+              <ion-label>Fecha del Turno: {{turnoItem.startDate.locale('es').format('L')}}    </ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label>El Turno comienza a las: {{turnoItem.startDate.format('LT')}} </ion-label>            
+              
+          </ion-item>  
+          <ion-item>
+              <ion-label>y termina a las: {{turnoItem.endDate.format('LT')}}</ion-label>
+              <!--ion-input formControlName="duracion" type="number"></ion-input-->
+              <!--ion-select formControlName="duracion"  >
+                  <ion-option value=15>15</ion-option>
+                  <ion-option value=30>30</ion-option>
+                  <ion-option value=60>60</ion-option>
+              </ion-select-->
+          </ion-item>
+          <ion-item>
+              <button ion-button [disabled]="!isValid()"   [color]="myColor" [block]=true [large]=true [round]="isRound">
+                      Confirmar
+              </button>    
+          </ion-item>    
+              <!-- ion-item>
+                  <ion-label color="primary">Inline Label</ion-label>
+                  <ion-input placeholder="Text Input"></ion-input>
+                </ion-item>
+              
+                <ion-item>
+                  <ion-label color="primary" fixed>Fixed Label</ion-label>
+                  <ion-input type="tel" placeholder="Tel Input"></ion-input>
+                </ion-item-->                
+      </ion-list>  
 
 </ion-content>
