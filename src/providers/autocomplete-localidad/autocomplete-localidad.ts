@@ -40,7 +40,8 @@ export class AutocompleteLocalidadProvider implements AutoCompleteService {
           item.forEach(element=>{
               this.localidadList.push({
                 nombre:element.localidad_nombre,
-                $key:element.$key
+                $key:element.$key,
+                codigoPostal:element.codigoPostal
               });
           })
       });

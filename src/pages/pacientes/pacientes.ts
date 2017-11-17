@@ -69,6 +69,12 @@ export class PacientesPage {
             });
 
             this.items.subscribe( (data) => {
+                /*data.forEach(element=>{
+                     if(element.provincia!=undefined){                       
+                            console.log('Key de provincia: '+Object.keys(element.provincia));
+                            console.log('Provincia: '+element.provincia[Object.keys(element.provincia).toString()].nombre);
+                     }
+                });*/
                 if (data.length > 0) {
                     // If the last key in the list equals the last key in the database
                     if (data[data.length - 1].$key === this.lastKey) {

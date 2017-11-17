@@ -7,5 +7,6 @@ export interface TurnoItem{
         $key: string;
         apellido: string;
         nombre: string;
+        dni: string;
     }   
 }

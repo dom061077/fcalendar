@@ -6,6 +6,7 @@ import { AutocompleteLocalidadProvider  } from '../../providers/autocomplete-loc
 import { FormGroup, FormBuilder, FormControl, Validators,ReactiveFormsModule  } from "@angular/forms";
 import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 import { PacienteItem } from '../../models/paciente/paciente-item';
+import { PacienteServiceProvider  } from '../../providers/paciente-service/paciente-service'
 
 /**
  * Generated class for the AddPacientePage page.
@@ -24,13 +25,16 @@ export class AddPacientePage {
   provinciaKey: any;
   localidad: any;
   obraSocial: any;
-  pacienteItem={} as PacienteItem;
+  pacienteItem={fechaNacimiento:'',estadoCivil:'',domicilio:'',codigoPostal:''
+                  ,telefono:'',sexo:'',email:'',provincia:{nombre:'',$key:''}
+                  ,localidad:{nombre:'',$key:'',codigoPostal:''}} as PacienteItem;
   constructor(public navCtrl: NavController, public navParams: NavParams
           ,public autocompleteService:AutocompleteObrasocialServiceProvider
           ,public autocompleteProvinciaProv: AutocompleteProvinciaProvider
           ,public autocompleteLocProv: AutocompleteLocalidadProvider
           ,public formBuilder: FormBuilder
           ,private database: AngularFireDatabase
+          ,private pacienteService: PacienteServiceProvider
         ) {
 
   }
@@ -44,14 +48,27 @@ export class AddPacientePage {
   }
 
   provinciaSelected(event){
-      this.provinciaKey = event.$key;
-      console.log('Provincia key seleccionada: '+this.provinciaKey);
-      this.autocompleteLocProv.setProvinciaId(this.provinciaKey);
+      this.pacienteItem.provincia.$key = event.$key;
+      this.pacienteItem.provincia.nombre = event.nombre;
+      this.autocompleteLocProv.setProvinciaId(this.pacienteItem.provincia.$key);
+  }
+
+  localidadSelected(event){
+      this.pacienteItem.localidad.$key = event.$key;
+      this.pacienteItem.localidad.nombre = event.nombre;
+      this.pacienteItem.localidad.codigoPostal = event.codigoPostal;
+  }
+
+  obraSocialSelected(event){
+      this.pacienteItem.obraSocial.$key = event.$key;
+      this.pacienteItem.obraSocial.nombre = event.nombre;
   }
 
 
+
   confirmar(){
-      console.log('Documento: '+this.pacienteItem.dni);
+      this.pacienteService.addPaciente(this.pacienteItem);
+      this.navCtrl.pop();
   }
 
 

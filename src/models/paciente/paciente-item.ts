@@ -1,17 +1,18 @@
-    export interface PacienteItem{
+
+export interface PacienteItem{
         $key : string;
         dni : string;
         apellido: string;
         nombre: string;
         fechaNacimiento: string;
-        estado_civil: string;
+        estadoCivil: string;
         domicilio : string;
-        provincia: {};
-        localidad: {};
+        provincia: {$key:'',nombre:''};
+        localidad: {$key:'',nombre:'',codigoPostal:''};
         codigoPostal: string;
         telefono : string;
         sexo : string;
-        estadoCivi: string;
-        obraSocial: {};
+        obraSocial: {$key:'',nombre:''};
+        email:string;
 
     }
