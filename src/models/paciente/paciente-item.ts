@@ -1,4 +1,11 @@
 
+/*
+interface Dic {
+    [key: string]: Object[]
+}
+
+*/
+
 export interface PacienteItem{
         $key : string;
         dni : string;

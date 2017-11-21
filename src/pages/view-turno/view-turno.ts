@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TurnoItem  } from '../../models/turnos/turno-item.interface';
 import { TurnosServiceProvider } from '../../providers/turnos-service/turnos-service';
+import * as moment from 'moment';
 
 
 //https://medium.com/google-developer-experts/deploy-your-app-to-firebase-in-seconds-b3a9a37dff47
@@ -23,10 +24,7 @@ export class ViewTurnoPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams
           ,private turnosService: TurnosServiceProvider ) {
-        this.turnoItem.$key = this.navParams.get('turnoId');
-        this.turnoItem.title = this.navParams.get('title');
-        this.turnoItem.start = this.navParams.get('start');
-        this.turnoItem.end = this.navParams.get('end');
+        this.turnoItem = turnosService.getTurno(this.navParams.get('id'));
 
 
   }

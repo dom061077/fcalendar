@@ -3,7 +3,9 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AutocompletePacienteServiceProvider  } from '../../providers/autocomplete-paciente-service/autocomplete-paciente-service';
 import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 import { FormGroup, FormBuilder, FormControl, Validators,ReactiveFormsModule  } from "@angular/forms";
-import { HomePage } from '../home/home'
+import { HomePage } from '../home/home';
+import { TurnosServiceProvider } from '../../providers/turnos-service/turnos-service';
+import { TurnoItem  } from '../../models/turnos/turno-item.interface';
 
 
 /**
@@ -38,7 +40,7 @@ export class AddTurnoPage implements OnInit {
   constructor(public navCtrl: NavController, public navParams: NavParams
       ,public autocompleteService:AutocompletePacienteServiceProvider
       ,private database: AngularFireDatabase
-      ,public formBuilder: FormBuilder  )  {
+      ,public formBuilder: FormBuilder,private turnoService: TurnosServiceProvider )  {
       this.turnos = database.list('turnos');
       this.idTurno = navParams.get('id');
       this.startDate = navParams.get('startDate');
@@ -78,14 +80,23 @@ export class AddTurnoPage implements OnInit {
 
   confirmar(){
 
-      let turnoAgregado = this.turnos.push({
+      /*let turnoAgregado = this.turnos.push({
             end: this.endDate.format(),
             start: this.startDate.format() ,
             title: this.apellidoNombre
       });
       turnoAgregado.child('paciente/'+this.$keyPaciente).set(
             {apellido_nombre:this.apellidoNombre,dni:this.dni}
-        );
+      );*/
+      const turnoItem = {} as TurnoItem;
+      turnoItem.paciente = {} as TurnoItem['paciente'];
+      turnoItem.start = this.startDate.format();
+      turnoItem.end = this.endDate.format();
+      turnoItem.title = this.apellidoNombre;
+      turnoItem.paciente.apellido = this.apellido;
+      turnoItem.paciente.nombre = this.nombre;
+      turnoItem.paciente.dni = this.dni;
+      this.turnoService.addTurno(turnoItem);
       this.navCtrl.push(HomePage) ;
   }
 

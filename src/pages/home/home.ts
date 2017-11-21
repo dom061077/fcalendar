@@ -55,9 +55,7 @@ export class HomePage {
         ,private turnosService: TurnosServiceProvider
         ) {
       const momento = moment();
-      console.log('Momento de filtro antes: '+momento.format());
       momento.month(9).date(25).minute(0).second(0).hour(0);
-      console.log('Momento de filtro: '+momento.format());
 
       this.turnosList = this.database.list('turnos',{
           query:{
@@ -70,9 +68,7 @@ export class HomePage {
   }
 
   private eventDrop( event, delta, revertFunc, jsEvent, ui, view ){
-      console.log('Drop el event title: '+event.title+' id: '+event.id);
       this.turnosService.moverTurno(event.id,event.start,event.end);
-      console.log('Drop event start: '+event.start.format());
   }
 
   private loadEvents(start, end, timezone, callback){
@@ -85,7 +81,6 @@ export class HomePage {
 
   
   private dayClick(date, jsEvent, view){
-     console.log('Event dayclick');     
      this.selectedDay = date;
      this.navCtrl.push(AddTurnoPage,{id:date.id,date:date
         ,duracion:Globals.duracion
@@ -94,13 +89,12 @@ export class HomePage {
   }
 
   private selectEvent(start, end, allDay){
-        console.log('Event eventClick');
           this.navCtrl.push(AddTurnoPage,{startDate:start,endDate:end});
   }
 
   private eventClick(event,jsEvent,view){
-        console.log('Event: '+event);
         this.navCtrl.push(ViewTurnoPage,{id:event.id
+                ,dni:event.dni,apellido:event.apellido,nombre:event.nombre
                 ,start:event.start,end:event.end,title:event.title});
 
 
@@ -126,7 +120,6 @@ export class HomePage {
               }
               console.log('Antes de ingresar al foreach: ');
               items.forEach(element => {
-                console.log('Start: '+element.start);
                 this.events$.push({
                   id: element.$key,
                   title:element.title,

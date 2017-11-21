@@ -27,7 +27,8 @@ export class AddPacientePage {
   obraSocial: any;
   pacienteItem={fechaNacimiento:'',estadoCivil:'',domicilio:'',codigoPostal:''
                   ,telefono:'',sexo:'',email:'',provincia:{nombre:'',$key:''}
-                  ,localidad:{nombre:'',$key:'',codigoPostal:''}} as PacienteItem;
+                  ,localidad:{nombre:'',$key:'',codigoPostal:''}
+                  ,obraSocial:{$key:'',nombre:''}} as PacienteItem;
   constructor(public navCtrl: NavController, public navParams: NavParams
           ,public autocompleteService:AutocompleteObrasocialServiceProvider
           ,public autocompleteProvinciaProv: AutocompleteProvinciaProvider

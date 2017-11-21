@@ -77,6 +77,8 @@ export class AutocompletePacienteServiceProvider implements AutoCompleteService 
                     this.pacientesList.push({
                       apellidoNombre:element.apellido_nombre,
                       dni:element.dni,
+                      apellido: element.apellido,
+                      nombre: element.nombre,
                       $key: element.$key
                     });
                   });

@@ -35,30 +35,43 @@ export class PacienteServiceProvider {
    */
 
   addPaciente(pacienteItem:PacienteItem){
-      let pacienteRef = this.pacientesRef.push({
-          apellido_nombre:pacienteItem.apellido+' '+pacienteItem.nombre,
+      /*let pacienteRef = this.pacientesRef.push({
+          apellido_nombre:pacienteItem.apellido.toUpperCase()+' '+pacienteItem.nombre.toUpperCase(),
+          apellido: pacienteItem.apellido.toUpperCase(),
+          nombre: pacienteItem.nombre.toUpperCase(),
           dni: pacienteItem.dni,
           fecha_nacimiento: pacienteItem.fechaNacimiento,
           estado_civil: pacienteItem.estadoCivil,
-          domicilio: pacienteItem.domicilio,
+          domicilio: pacienteItem.domicilio.toUpperCase(),
           codigo_postal: pacienteItem.codigoPostal,
           email:pacienteItem.email,
           telefono: pacienteItem.telefono,
           sexo: pacienteItem.sexo
       });      
-
+      */
+      const provinciaId;
+      const localidadId
       if (pacienteItem.provincia.$key!='' && pacienteItem.provincia.$key!=undefined)
-            pacienteRef.child('provincia/'+pacienteItem.provincia.$key).set({
-                  nombre:pacienteItem.provincia.nombre
-            });
+
+            //pacienteRef.child('provincia/'+pacienteItem.provincia.$key).set({
+            //      nombre:pacienteItem.provincia.nombre
+            //});
       if (pacienteItem.localidad.$key!='' && pacienteItem.localidad.$key!=undefined)      
-            pacienteRef.child('localidad/'+pacienteItem.localidad.$key).set({
-                nombre:pacienteItem.localidad.nombre,codigo_postal:pacienteItem.localidad.codigoPostal
-            });
+            //pacienteRef.child('localidad/'+pacienteItem.localidad.$key).set({
+            //    nombre:pacienteItem.localidad.nombre
+            //});
       if (pacienteItem.obraSocial.$key!='' && pacienteItem.obraSocial.$key!=undefined)     
-            pacienteRef.child('obra_scocial/'+pacienteItem.obraSocial.$key).set({
+            //pacienteRef.child('obra_scocial/'+pacienteItem.obraSocial.$key).set({
                 
-            });
+            //});
+       let key = this.database.list('').push(undefined).key;
+       this.database.object('').update({
+            ['pacientes/${key}']:pacienteItem,
+            ['pacientes/${key}/provincia/${pacienteItem.provincia.$key}']
+
+       });    
+
+
 
   }
 
