@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AngularFireDatabase,FirebaseListObservable,FirebaseObjectObservable} from 'angularfire2/database';
 import * as moment from 'moment';
+import { TurnoItem  } from '../../models/turnos/turno-item.interface';
 
 /*
   Generated class for the TurnosServiceProvider provider.
@@ -25,6 +26,12 @@ export class TurnosServiceProvider {
             end:endMoment.format()
       });
 
+  }
+
+  deleteTurno(turnoItem:TurnoItem){
+     var item: FirebaseObjectObservable<any>; 
+     item = this.database.object('turnos/'+turnoItem.$key);
+     item.remove();
   }
 
 

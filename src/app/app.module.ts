@@ -7,6 +7,7 @@ import { AddTurnoPage } from '../pages/add-turno/add-turno';
 import { PacientesPage } from '../pages/pacientes/pacientes';
 import { AddPacientePage } from '../pages/add-paciente/add-paciente';
 import { PerfilPage } from '../pages/perfil/perfil';
+import { ViewTurnoPage } from '../pages/view-turno/view-turno';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -39,7 +40,8 @@ import { PacienteServiceProvider } from '../providers/paciente-service/paciente-
     ListPage,
     PacientesPage,
     AddPacientePage,
-    PerfilPage
+    PerfilPage,
+    ViewTurnoPage
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,8 @@ import { PacienteServiceProvider } from '../providers/paciente-service/paciente-
     AddTurnoPage,
     PacientesPage,
     AddPacientePage,
-    PerfilPage
+    PerfilPage,
+    ViewTurnoPage
   ],
   providers: [
     StatusBar,

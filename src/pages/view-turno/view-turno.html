@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>view-turno</ion-title>
+    <ion-title>Ver Turno</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -20,19 +20,19 @@
           </ion-item>
 
           <ion-item> 
-            <ion-label>Apellido y Nombre: {{turnoItem.apellido} {turnoItem.nombre}}    </ion-label>
+            <ion-label>Apellido y Nombre: {{turnoItem.apellido}} {{turnoItem.nombre}}    </ion-label>
         </ion-item>
         
                   
           <ion-item> 
-              <ion-label>Fecha del Turno: {{turnoItem.startDate.locale('es').format('L')}}    </ion-label>
+              <ion-label>Fecha del Turno: {{turnoItem.start.locale('es').format('L')}}    </ion-label>
           </ion-item>
           <ion-item>
-              <ion-label>El Turno comienza a las: {{turnoItem.startDate.format('LT')}} </ion-label>            
+              <ion-label>El Turno comienza a las: {{turnoItem.start.format('LT')}} </ion-label>            
               
           </ion-item>  
           <ion-item>
-              <ion-label>y termina a las: {{turnoItem.endDate.format('LT')}}</ion-label>
+              <ion-label>y termina a las: {{turnoItem.end.format('LT')}}</ion-label>
               <!--ion-input formControlName="duracion" type="number"></ion-input-->
               <!--ion-select formControlName="duracion"  >
                   <ion-option value=15>15</ion-option>
@@ -41,8 +41,8 @@
               </ion-select-->
           </ion-item>
           <ion-item>
-              <button ion-button [disabled]="!isValid()"   [color]="myColor" [block]=true [large]=true [round]="isRound">
-                      Confirmar
+              <button ion-button (click)="deleteTurno()"  [color]="myColor" [block]=true [large]=true [round]="isRound">
+                      Eliminar
               </button>    
           </ion-item>    
               <!-- ion-item>

@@ -7,6 +7,7 @@ import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database
 import { Globals } from '../../app/globals'
 import * as moment from 'moment';
 import { TurnosServiceProvider  } from '../../providers/turnos-service/turnos-service';
+import { ViewTurnoPage } from '../../pages/view-turno/view-turno';
 
 //@IonicPage()
 @Component({
@@ -43,7 +44,8 @@ export class HomePage {
         eventLimit: true, // allow "more" link when too many events
         eventDrop: this.eventDrop.bind(this),
         //dayClick: this.dayClick.bind(this),
-        select : this.eventClick.bind(this),
+        select : this.selectEvent.bind(this),
+        eventClick: this.eventClick.bind(this),
         eventResize: this.onEventResize.bind(this),
         events: this.loadEvents.bind(this)
   
@@ -91,11 +93,20 @@ export class HomePage {
 
   }
 
-  private eventClick(start, end, allDay){
+  private selectEvent(start, end, allDay){
         console.log('Event eventClick');
           this.navCtrl.push(AddTurnoPage,{startDate:start,endDate:end});
+  }
+
+  private eventClick(event,jsEvent,view){
+        console.log('Event: '+event);
+        this.navCtrl.push(ViewTurnoPage,{id:event.id
+                ,start:event.start,end:event.end,title:event.title});
+
 
   }
+
+
 
   volverFecha(){
 
