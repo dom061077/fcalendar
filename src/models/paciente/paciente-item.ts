@@ -14,12 +14,12 @@ export interface PacienteItem{
         fechaNacimiento: string;
         estadoCivil: string;
         domicilio : string;
-        provincia: {$key:'',nombre:''};
-        localidad: {$key:'',nombre:'',codigoPostal:''};
+        apellido_nombre : string;
+        provincia:{[key:string]:{}};
+        localidad:{};
         codigoPostal: string;
         telefono : string;
         sexo : string;
-        obraSocial: {$key:'',nombre:''};
+        obraSocial: {[key:string]:{}};
         email:string;
-
     }

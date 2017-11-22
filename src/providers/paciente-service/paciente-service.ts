@@ -49,30 +49,52 @@ export class PacienteServiceProvider {
           sexo: pacienteItem.sexo
       });      
       */
-      const provinciaId;
-      const localidadId
-      if (pacienteItem.provincia.$key!='' && pacienteItem.provincia.$key!=undefined)
-
+      //const provinciaId;
+      //const localidadId
+      //if (pacienteItem.provincia.$key!='' && pacienteItem.provincia.$key!=undefined)
             //pacienteRef.child('provincia/'+pacienteItem.provincia.$key).set({
             //      nombre:pacienteItem.provincia.nombre
             //});
-      if (pacienteItem.localidad.$key!='' && pacienteItem.localidad.$key!=undefined)      
+      //if (pacienteItem.localidad.$key!='' && pacienteItem.localidad.$key!=undefined)      
             //pacienteRef.child('localidad/'+pacienteItem.localidad.$key).set({
             //    nombre:pacienteItem.localidad.nombre
             //});
-      if (pacienteItem.obraSocial.$key!='' && pacienteItem.obraSocial.$key!=undefined)     
+      //if (pacienteItem.obraSocial.$key!='' && pacienteItem.obraSocial.$key!=undefined)     
             //pacienteRef.child('obra_scocial/'+pacienteItem.obraSocial.$key).set({
                 
             //});
-       let key = this.database.list('').push(undefined).key;
+
+       /*let key = this.database.list('').push(undefined).key;
        this.database.object('').update({
             ['pacientes/${key}']:pacienteItem,
             ['pacientes/${key}/provincia/${pacienteItem.provincia.$key}']
 
-       });    
+       });    */
+       pacienteItem.apellido = pacienteItem.apellido.toUpperCase();
+       pacienteItem.nombre = pacienteItem.nombre.toUpperCase();
+       pacienteItem.apellido_nombre=pacienteItem.apellido.toUpperCase()+' '+pacienteItem.nombre.toUpperCase();
+       this.pacientesRef.push(pacienteItem);
 
 
 
+  }
+
+  existePaciente(dni:string):boolean{
+        var existe = false;
+        const query = this.database.list('pacientes',{
+            query:{
+                orderByChild: 'dni',
+                equalTo:'26138236'
+            }
+        });
+        const subscription = query.subscribe(data=>{
+                console.log('Encuentra el dni');
+                if (data)
+                    existe=true;
+        });
+
+        subscription.unsubscribe();
+        return existe;
   }
 
 

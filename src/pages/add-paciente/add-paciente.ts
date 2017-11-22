@@ -6,7 +6,8 @@ import { AutocompleteLocalidadProvider  } from '../../providers/autocomplete-loc
 import { FormGroup, FormBuilder, FormControl, Validators,ReactiveFormsModule  } from "@angular/forms";
 import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 import { PacienteItem } from '../../models/paciente/paciente-item';
-import { PacienteServiceProvider  } from '../../providers/paciente-service/paciente-service'
+import { PacienteServiceProvider  } from '../../providers/paciente-service/paciente-service';
+import { DniValidator } from '../../validators/dni.validator';
 
 /**
  * Generated class for the AddPacientePage page.
@@ -26,9 +27,7 @@ export class AddPacientePage {
   localidad: any;
   obraSocial: any;
   pacienteItem={fechaNacimiento:'',estadoCivil:'',domicilio:'',codigoPostal:''
-                  ,telefono:'',sexo:'',email:'',provincia:{nombre:'',$key:''}
-                  ,localidad:{nombre:'',$key:'',codigoPostal:''}
-                  ,obraSocial:{$key:'',nombre:''}} as PacienteItem;
+                  ,telefono:'',sexo:'',email:'' } as PacienteItem;
   constructor(public navCtrl: NavController, public navParams: NavParams
           ,public autocompleteService:AutocompleteObrasocialServiceProvider
           ,public autocompleteProvinciaProv: AutocompleteProvinciaProvider
@@ -36,6 +35,7 @@ export class AddPacientePage {
           ,public formBuilder: FormBuilder
           ,private database: AngularFireDatabase
           ,private pacienteService: PacienteServiceProvider
+          ,private dniValidator: DniValidator
         ) {
 
   }
@@ -49,20 +49,29 @@ export class AddPacientePage {
   }
 
   provinciaSelected(event){
-      this.pacienteItem.provincia.$key = event.$key;
-      this.pacienteItem.provincia.nombre = event.nombre;
-      this.autocompleteLocProv.setProvinciaId(this.pacienteItem.provincia.$key);
+//      this.pacienteItem.provincia.$key = event.$key;
+//      this.pacienteItem.provincia.nombre = event.nombre;
+      this.pacienteItem.provincia={};
+      this.pacienteItem.provincia[event.$key]={nombre_provincia:event.nombre};
+      this.autocompleteLocProv.setProvinciaId(event.$key);
   }
 
   localidadSelected(event){
-      this.pacienteItem.localidad.$key = event.$key;
+      /*this.pacienteItem.localidad.$key = event.$key;
       this.pacienteItem.localidad.nombre = event.nombre;
       this.pacienteItem.localidad.codigoPostal = event.codigoPostal;
+      */
+      this.pacienteItem.localidad={};
+      this.pacienteItem.localidad[event.$key] = {localidad_nombre:event.nombre};
+
   }
 
   obraSocialSelected(event){
-      this.pacienteItem.obraSocial.$key = event.$key;
+      /*this.pacienteItem.obraSocial.$key = event.$key;
       this.pacienteItem.obraSocial.nombre = event.nombre;
+      */
+      this.pacienteItem.obraSocial = {};
+      this.pacienteItem.obraSocial[event.$key]={nombre:event.descripcion}
   }
 
 
@@ -78,7 +87,7 @@ export class AddPacientePage {
     //https://forum.ionicframework.com/t/forms-just-can-find-a-working-example/63453/2      
           this.formAdd = this.formBuilder.group({
             //'pacienteId': ['',[Validators.required]],
-              'dni'   : ['', [Validators.required]],
+              'dni'   : ['', [Validators.required],this.dniValidator.checkDni.bind(this.dniValidator)],
               'apellido'   : ['', [Validators.required]],
               'nombre'   : ['', [Validators.required]],
               'fechaNacimiento'   : [''],

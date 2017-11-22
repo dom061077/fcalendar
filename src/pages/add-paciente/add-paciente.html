@@ -23,11 +23,11 @@
                     </ion-item>
                     <ion-item>
                         <ion-label  floating>Apellido:</ion-label>
-                        <ion-input [(ngModel)]="pacienteItem.apellido" formControlName="apellido"></ion-input>
+                        <ion-input [(ngModel)]="pacienteItem.apellido"   formControlName="apellido"></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label  floating>Nombre:</ion-label>
-                        <ion-input [(ngModel)]="pacienteItem.nombre" formControlName="nombre"></ion-input>
+                        <ion-input [(ngModel)]="pacienteItem.nombre"  formControlName="nombre"></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label  floating>Fecha de Nacimiento:</ion-label>
@@ -38,7 +38,7 @@
                     
                     <ion-item>
                         <ion-label floating>Domicilio:</ion-label>
-                        <ion-input [(ngModel)]="pacienteItem.domicilio" formControlName="domicilio"></ion-input>            
+                        <ion-input [(ngModel)]="pacienteItem.domicilio"  formControlName="domicilio"></ion-input>            
                     </ion-item>
                     <ion-auto-complete  (itemSelected)="provinciaSelected($event)" style="z-index: 999999999;" [options]="{placeholder : 'Provincia'}"   [dataProvider]="autocompleteProvinciaProv"></ion-auto-complete>
                     <ion-auto-complete  (itemSelected)="localidadSelected($event)"   [options]="{placeholder : 'Localidad'}"   [dataProvider]="autocompleteLocProv" ></ion-auto-complete>
