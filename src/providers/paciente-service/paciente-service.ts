@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AngularFireDatabase,FirebaseListObservable,FirebaseObjectObservable} from 'angularfire2/database';
 import { PacienteItem  } from '../../models/paciente/paciente-item';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 /*
   Generated class for the PacienteServiceProvider provider.
@@ -12,8 +13,25 @@ import { PacienteItem  } from '../../models/paciente/paciente-item';
 @Injectable()
 export class PacienteServiceProvider {
   pacientesRef : FirebaseListObservable<any[]>;
+  dniFilter:BehaviorSubject<string> = new BehaviorSubject<string>('');
+  existeDni:boolean;
   constructor(private database: AngularFireDatabase) {
-      this.pacientesRef = this.database.list('pacientes');
+      this.pacientesRef = this.database.list('pacientes',{
+          query:{
+              orderByChild:'dni',
+              equalTo:this.dniFilter
+              
+          }
+      });
+      this.pacientesRef.subscribe((data)=>{
+                 
+                 if(data.length>0){
+                    this.existeDni = true;
+                    console.log('Existe el dni');
+                 }
+        });
+      this.dniFilter.next('0');
+
   }
 
   /**
@@ -80,21 +98,9 @@ export class PacienteServiceProvider {
   }
 
   existePaciente(dni:string):boolean{
-        var existe = false;
-        const query = this.database.list('pacientes',{
-            query:{
-                orderByChild: 'dni',
-                equalTo:'26138236'
-            }
-        });
-        const subscription = query.subscribe(data=>{
-                console.log('Encuentra el dni');
-                if (data)
-                    existe=true;
-        });
-
-        subscription.unsubscribe();
-        return existe;
+        this.existeDni = false;
+        this.dniFilter.next(dni);
+        return this.existeDni;
   }
 
 

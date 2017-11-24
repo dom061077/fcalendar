@@ -16,12 +16,16 @@ export class DniValidator{
         return new Promise(resolve=>{
                 this.debouncer = setTimeout(()=> {
                     const existe = this.pacienteService.existePaciente(control.value) ;
-                    if (existe)
-                        resolve({"paciente ya existe":true})
-                    else
+                    console.log('Desde el validaor consulta si existe el paciente');
+                    if (existe){
+                        console.log('resuelve con error');
+                        resolve({"paciente ya existe":true});
+                        
+                        
+                    }else
                         resolve(null);    
                         
-                }, 1000);
+                }, 2000);
 
 
         });
