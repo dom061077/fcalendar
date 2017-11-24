@@ -29,17 +29,18 @@ export class AutocompleteProvinciaProvider implements AutoCompleteService {
   provinciaList=[];
   constructor( private database: AngularFireDatabase) {
         console.log('Autocomlete provincia service constructor');
-        this.database.list('provincias_localidades',{
+        this.database.list('provincias',{
             query:{
-              orderByChild: 'nombre_provincia'
+              orderByChild: 'nombre'
             }
           }
         ).subscribe(items=>{
           console.log('Subscribe provincia');
           items.forEach(element => {
             console.log('forEach sobre provincia');
+            console.log('Provincia: '+element.nombre);
             this.provinciaList.push({
-              nombre:element.nombre_provincia,
+              nombre:element.nombre,
               $key: element.$key
             });
           });
