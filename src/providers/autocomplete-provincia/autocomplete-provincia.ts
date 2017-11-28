@@ -60,6 +60,7 @@ getResults(keyword:string) {
         this.endat.next('\uf8ff');
         this.startat.next('');
     } */       
+    
     return JSON.parse(JSON.stringify(this.provinciaList)).filter(item => item.nombre.toLowerCase().indexOf(keyword.toLowerCase())>-1 );    
 
 }  

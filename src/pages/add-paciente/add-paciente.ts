@@ -56,6 +56,12 @@ export class AddPacientePage {
       this.autocompleteLocProv.setProvinciaId(event.$key);
   }
 
+  onCancelProvincia(event){
+      this.pacienteItem.localidad={};
+      this.pacienteItem.codigoPostal='';
+      console.log('Localidad reseteada');
+  }
+
   localidadSelected(event){
       /*this.pacienteItem.localidad.$key = event.$key;
       this.pacienteItem.localidad.nombre = event.nombre;
@@ -63,6 +69,8 @@ export class AddPacientePage {
       */
       this.pacienteItem.localidad={};
       this.pacienteItem.localidad[event.$key] = {localidad_nombre:event.nombre};
+      this.pacienteItem.codigoPostal = event.codigoPostal;
+
 
   }
 

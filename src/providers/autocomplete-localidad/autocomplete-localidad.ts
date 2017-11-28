@@ -36,13 +36,7 @@ export class AutocompleteLocalidadProvider implements AutoCompleteService {
       while(this.localidadList.length){
           this.localidadList.pop();
       }
-      this.database.list('localidades',{
-                   query:{
-                        orderByChild:'provincia',
-                        equalTo : '102XX'
-                   } 
-                }   
-            ).subscribe((item)=>{
+      this.database.list('localidades/provincia/'+provinciaId+'/localidades').subscribe((item)=>{
                     item.forEach(element=>{
                         this.localidadList.push({
                             nombre:element.nombre,

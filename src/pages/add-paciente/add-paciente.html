@@ -36,15 +36,15 @@
                             [(ngModel)]="myDate"></ion-datetime>
                     </ion-item>
                     
-                    <ion-item>
+                    <ion-item> 
                         <ion-label floating>Domicilio:</ion-label>
                         <ion-input [(ngModel)]="pacienteItem.domicilio"  formControlName="domicilio"></ion-input>            
                     </ion-item>
-                    <ion-auto-complete  (itemSelected)="provinciaSelected($event)" style="z-index: 999999999;" [options]="{placeholder : 'Provincia'}"   [dataProvider]="autocompleteProvinciaProv"></ion-auto-complete>
+                    <ion-auto-complete   (ionCancel)="onCancelProvincia($event)"  (itemSelected)="provinciaSelected($event)" style="z-index: 999999999;" [options]="{placeholder : 'Provincia'}"   [dataProvider]="autocompleteProvinciaProv"></ion-auto-complete>
                     <ion-auto-complete  (itemSelected)="localidadSelected($event)"   [options]="{placeholder : 'Localidad'}"   [dataProvider]="autocompleteLocProv" ></ion-auto-complete>
                     <ion-item>
                         <ion-label floating>Código Postal:</ion-label>
-                        <ion-input [(ngModel)]="pacienteItem.codigoPostal" formControlName="codigoPostal"></ion-input>            
+                        <ion-input [readonly]=true [(ngModel)]="pacienteItem.codigoPostal" formControlName="codigoPostal"></ion-input>            
                     </ion-item>
                     <ion-item>
                         <ion-label floating>Teléfono:</ion-label>
