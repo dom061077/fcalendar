@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { AutoCompleteService } from 'ionic2-auto-complete';
+import { AutoCompleteService,AutoCompleteComponent } from 'ionic2-auto-complete';
 import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 
 

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AutocompleteObrasocialServiceProvider } from '../../providers/autocomplete-obrasocial-service/autocomplete-obrasocial-service';
 import { AutocompleteProvinciaProvider } from '../../providers/autocomplete-provincia/autocomplete-provincia';
 import { AutocompleteLocalidadProvider  } from '../../providers/autocomplete-localidad/autocomplete-localidad';
 import { FormGroup, FormBuilder, FormControl, Validators,ReactiveFormsModule  } from "@angular/forms";
 import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
+import { AutoCompleteComponent } from 'ionic2-auto-complete';
 import { PacienteItem } from '../../models/paciente/paciente-item';
 import { PacienteServiceProvider  } from '../../providers/paciente-service/paciente-service';
 import { DniValidator } from '../../validators/dni.validator';
@@ -22,9 +23,15 @@ import { DniValidator } from '../../validators/dni.validator';
   templateUrl: 'add-paciente.html',
 })
 export class AddPacientePage {
+  @ViewChild('provinciaSearchBar')
+  provinciaSearchBar:AutoCompleteComponent;  
+  @ViewChild('localidadSearchBar')
+  localidadSearchBar:AutoCompleteComponent;
   formAdd: FormGroup;
   provinciaKey: any;
   localidad: any;
+  provinciaName:string;
+  localidadName:string;
   obraSocial: any;
   pacienteItem={fechaNacimiento:'',estadoCivil:'',domicilio:'',codigoPostal:''
                   ,telefono:'',sexo:'',email:'' } as PacienteItem;
@@ -54,12 +61,23 @@ export class AddPacientePage {
       this.pacienteItem.provincia={};
       this.pacienteItem.provincia[event.$key]={nombre_provincia:event.nombre};
       this.autocompleteLocProv.setProvinciaId(event.$key);
+      this.provinciaName = event.nombre;
+      this.localidadSearchBar.setValue('');
+      this.localidadName = '';
+      this.pacienteItem.codigoPostal='';
   }
 
-  onCancelProvincia(event){
+  onCancelProvincia(){
       this.pacienteItem.localidad={};
       this.pacienteItem.codigoPostal='';
-      console.log('Localidad reseteada');
+
+      this.localidadSearchBar.setValue('');
+      this.localidadName = '';
+      this.pacienteItem.codigoPostal='';
+
+      this.provinciaSearchBar.setValue('');
+      this.provinciaName='';
+      
   }
 
   localidadSelected(event){
@@ -70,8 +88,14 @@ export class AddPacientePage {
       this.pacienteItem.localidad={};
       this.pacienteItem.localidad[event.$key] = {localidad_nombre:event.nombre};
       this.pacienteItem.codigoPostal = event.codigoPostal;
+      this.localidadName = event.nombre;
 
+  }
 
+  onCancelLocalidad(){
+      this.localidadSearchBar.setValue('');
+      this.localidadName = '';
+      this.pacienteItem.codigoPostal = '';
   }
 
   obraSocialSelected(event){
@@ -81,6 +105,7 @@ export class AddPacientePage {
       this.pacienteItem.obraSocial = {};
       this.pacienteItem.obraSocial[event.$key]={nombre:event.descripcion}
   }
+
 
 
 

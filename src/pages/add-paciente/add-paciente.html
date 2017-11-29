@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Agregar un Paciente</ion-title>
   </ion-navbar>
 
@@ -28,6 +28,8 @@
                     <ion-item>
                         <ion-label  floating>Nombre:</ion-label>
                         <ion-input [(ngModel)]="pacienteItem.nombre"  formControlName="nombre"></ion-input>
+
+                        
                     </ion-item>
                     <ion-item>
                         <ion-label  floating>Fecha de Nacimiento:</ion-label>
@@ -40,13 +42,25 @@
                         <ion-label floating>Domicilio:</ion-label>
                         <ion-input [(ngModel)]="pacienteItem.domicilio"  formControlName="domicilio"></ion-input>            
                     </ion-item>
-                    <ion-auto-complete   (ionCancel)="onCancelProvincia($event)"  (itemSelected)="provinciaSelected($event)" style="z-index: 999999999;" [options]="{placeholder : 'Provincia'}"   [dataProvider]="autocompleteProvinciaProv">
-                    </ion-auto-complete>
-                    <button ion-button [clear]=true icon-only>
-                            <ion-icon name="star"></ion-icon>
-                    </button>
-
-                    <ion-auto-complete  (itemSelected)="localidadSelected($event)"   [options]="{placeholder : 'Localidad'}"   [dataProvider]="autocompleteLocProv" ></ion-auto-complete>
+                    <div style="display:flex">
+                            <ion-auto-complete #provinciaSearchBar     (itemSelected)="provinciaSelected($event)" style="z-index: 999999999;" [options]="{placeholder : 'Provincia'}"   [dataProvider]="autocompleteProvinciaProv">
+                            </ion-auto-complete>
+                            <button ion-button type="button" clear item-right (click)="onCancelProvincia()">
+                                    <ion-icon name="close"></ion-icon>
+                            </button>                    
+                    </div>    
+                    <ion-item>
+                            {{provinciaName}}
+                    </ion-item>    
+                    <div style="display:flex">
+                            <ion-auto-complete  #localidadSearchBar (itemSelected)="localidadSelected($event)"   [options]="{placeholder : 'Localidad'}"   [dataProvider]="autocompleteLocProv" ></ion-auto-complete>
+                            <button clear item-right>
+                                    <ion-icon name="close"></ion-icon>
+                            </button>    
+                    </div>
+                    <ion-item> 
+                            {{localidadName}}                       
+                    </ion-item>    
                     <ion-item>
                         <ion-label floating>Código Postal:</ion-label>
                         <ion-input [readonly]=true [(ngModel)]="pacienteItem.codigoPostal" formControlName="codigoPostal"></ion-input>            
