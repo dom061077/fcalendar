@@ -40,7 +40,12 @@
                         <ion-label floating>Domicilio:</ion-label>
                         <ion-input [(ngModel)]="pacienteItem.domicilio"  formControlName="domicilio"></ion-input>            
                     </ion-item>
-                    <ion-auto-complete   (ionCancel)="onCancelProvincia($event)"  (itemSelected)="provinciaSelected($event)" style="z-index: 999999999;" [options]="{placeholder : 'Provincia'}"   [dataProvider]="autocompleteProvinciaProv"></ion-auto-complete>
+                    <ion-auto-complete   (ionCancel)="onCancelProvincia($event)"  (itemSelected)="provinciaSelected($event)" style="z-index: 999999999;" [options]="{placeholder : 'Provincia'}"   [dataProvider]="autocompleteProvinciaProv">
+                    </ion-auto-complete>
+                    <button ion-button [clear]=true icon-only>
+                            <ion-icon name="star"></ion-icon>
+                    </button>
+
                     <ion-auto-complete  (itemSelected)="localidadSelected($event)"   [options]="{placeholder : 'Localidad'}"   [dataProvider]="autocompleteLocProv" ></ion-auto-complete>
                     <ion-item>
                         <ion-label floating>Código Postal:</ion-label>
