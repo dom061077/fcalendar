@@ -6,6 +6,7 @@ import { AngularFireDatabaseModule} from 'angularfire2/database';
 import { AddTurnoPage } from '../pages/add-turno/add-turno';
 import { PacientesPage } from '../pages/pacientes/pacientes';
 import { AddPacientePage } from '../pages/add-paciente/add-paciente';
+import { ViewPacientePage  } from '../pages/view-paciente/view-paciente';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { ViewTurnoPage } from '../pages/view-turno/view-turno';
 
@@ -41,6 +42,7 @@ import { DniValidator  } from '../validators/dni.validator';
     ListPage,
     PacientesPage,
     AddPacientePage,
+    ViewPacientePage,
     PerfilPage,
     ViewTurnoPage
   ],
@@ -64,6 +66,7 @@ import { DniValidator  } from '../validators/dni.validator';
     AddTurnoPage,
     PacientesPage,
     AddPacientePage,
+    ViewPacientePage,
     PerfilPage,
     ViewTurnoPage
   ],

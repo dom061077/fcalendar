@@ -7,12 +7,93 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>view-paciente</ion-title>
+    <ion-title>Ver Paciente</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+    <form [formGroup] =  "formAdd"  (ngSubmit)="confirmar()">    
+        <ion-list>
+            <ion-item>
+                <ion-label floating>D.N.I:</ion-label>
+                <ion-input [(ngModel)]="pacienteItem.dni"
+                         formControlName="dni" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label  floating>Apellido:</ion-label>
+                <ion-input [(ngModel)]="pacienteItem.apellido"  formControlName="apellido" ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label  floating>Nombre:</ion-label>
+                <ion-input [(ngModel)]="pacienteItem.nombre" formControlName="nombre" ></ion-input>
+
+                
+            </ion-item>
+            <ion-item>
+                <ion-label  floating>Fecha de Nacimiento:</ion-label>
+                <ion-datetime [(ngModel)]="pacienteItem.fechaNacimiento" formControlName="fechaNacimiento" displayFormat="MM/DD/YYYY" 
+                    cancelText="Cancelar" doneText="Aceptar"
+                    [(ngModel)]="myDate"></ion-datetime>
+            </ion-item>
+            
+            <ion-item> 
+                <ion-label floating>Domicilio:</ion-label>
+                <ion-input [(ngModel)]="pacienteItem.domicilio"  formControlName="domicilio"></ion-input>            
+            </ion-item>
+            <div style="display:flex">
+                    <ion-auto-complete #provinciaSearchBar     (itemSelected)="provinciaSelected($event)" style="z-index: 999999999;" [options]="{placeholder : 'Provincia'}"   [dataProvider]="autocompleteProvinciaProv">
+                    </ion-auto-complete>
+                    <button ion-button type="button" clear item-right (click)="onCancelProvincia()">
+                            <ion-icon name="close"></ion-icon>
+                    </button>                    
+            </div>    
+            <ion-item>
+                    {{provinciaName}}
+            </ion-item>    
+            <div style="display:flex">
+                    <ion-auto-complete  #localidadSearchBar (itemSelected)="localidadSelected($event)"   [options]="{placeholder : 'Localidad'}"   [dataProvider]="autocompleteLocProv" ></ion-auto-complete>
+                    <button clear item-right>
+                            <ion-icon name="close"></ion-icon>
+                    </button>    
+            </div>
+            <ion-item> 
+                    {{localidadName}}                       
+            </ion-item>    
+            <ion-item>
+                <ion-label floating>Código Postal:</ion-label>
+                <ion-input [readonly]=true [(ngModel)]="pacienteItem.codigoPostal" formControlName="codigoPostal"></ion-input>            
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Teléfono:</ion-label>
+                <ion-input [(ngModel)]="pacienteItem.telefono" formControlName="telefono"></ion-input>            
+            </ion-item>
+            <ion-item>
+                <ion-label floating>E-mail:</ion-label>
+                <ion-input [(ngModel)]="pacienteItem.email" type="email" formControlName="telefono"></ion-input>            
+            </ion-item>
+            
+            <ion-item>
+                <ion-label floating>Sexo:</ion-label>
+                <ion-select [(ngModel)]="pacienteItem.sexo" formControlName="sexo">
+                        <ion-option value="MASCULINO">Masculino</ion-option>
+                        <ion-option value="FEMENINO">Femenino</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                    <ion-label floating>Estado Civil:</ion-label>
+                    <ion-select [(ngModel)]="pacienteItem.estadoCivil" formControlName="estadoCivil">
+                            <ion-option value="CASADO">CASADO/A</ion-option>
+                            <ion-option value="SOLTERO">SOLTERO/A</ion-option>
+                    </ion-select>
+            </ion-item>
+                    <ion-auto-complete (itemSelected)="obraSocialSelected($event)" [options]="{placeholder : 'Obra Social'}"   [dataProvider]="autocompleteService" >
+                    </ion-auto-complete>
+                
+        </ion-list> 
+        <button ion-button full  round  >Guardar</button>    
+</form>        
+
 
 </ion-content>

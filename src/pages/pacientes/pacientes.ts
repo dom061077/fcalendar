@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AddPacientePage } from '../add-paciente/add-paciente';
+import { ViewPacientePage  } from '../view-paciente/view-paciente';
 
 /**
  * Generated class for the PacientesPage page.
@@ -135,7 +136,8 @@ export class PacientesPage {
   }
 
   onClickItem(item){
-        console.log('Item seleccionado: '+item);
+        //console.log('Item seleccionado: '+item);
+        this.navCtrl.push(ViewPacientePage,{pacienteId:item.$key});
   }
 
 
