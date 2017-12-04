@@ -92,8 +92,12 @@ export class PacienteServiceProvider {
        pacienteItem.nombre = pacienteItem.nombre.toUpperCase();
        pacienteItem.apellido_nombre=pacienteItem.apellido.toUpperCase()+' '+pacienteItem.nombre.toUpperCase();
        this.pacientesRef.push(pacienteItem);
+  }
 
-
+  updatePaciente(pacienteItem:PacienteItem,$key:string){
+        var item: FirebaseObjectObservable<any>;
+        item = this.database.object('pacientes/'+$key);
+        item.update(pacienteItem);
 
   }
 

@@ -16,7 +16,7 @@ export interface PacienteItem{
         domicilio : string;
         apellido_nombre : string;
         provincia:{[key:string]:{}};
-        localidad:{};
+        localidad:{[key:string]:{}};
         codigoPostal: string;
         telefono : string;
         sexo : string;

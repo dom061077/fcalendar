@@ -43,7 +43,7 @@
                 <ion-input [(ngModel)]="pacienteItem.domicilio"  formControlName="domicilio"></ion-input>            
             </ion-item>
             <div style="display:flex">
-                    <ion-auto-complete #provinciaSearchBar     (itemSelected)="provinciaSelected($event)" style="z-index: 999999999;" [options]="{placeholder : 'Provincia'}"   [dataProvider]="autocompleteProvinciaProv">
+                    <ion-auto-complete displayFormat="DD/MM/YYYY" #provinciaSearchBar     (itemSelected)="provinciaSelected($event)" style="z-index: 999999999;" [options]="{placeholder : 'Provincia'}"   [dataProvider]="autocompleteProvinciaProv">
                     </ion-auto-complete>
                     <button ion-button type="button" clear item-right (click)="onCancelProvincia()">
                             <ion-icon name="close"></ion-icon>
@@ -54,9 +54,9 @@
             </ion-item>    
             <div style="display:flex">
                     <ion-auto-complete  #localidadSearchBar (itemSelected)="localidadSelected($event)"   [options]="{placeholder : 'Localidad'}"   [dataProvider]="autocompleteLocProv" ></ion-auto-complete>
-                    <button clear item-right>
-                            <ion-icon name="close"></ion-icon>
-                    </button>    
+                            <button ion-button clear (click)="onCancelObraSocial()">
+                                    <ion-icon name="close"></ion-icon>
+                            </button>    
             </div>
             <ion-item> 
                     {{localidadName}}                       
@@ -71,7 +71,7 @@
             </ion-item>
             <ion-item>
                 <ion-label floating>E-mail:</ion-label>
-                <ion-input [(ngModel)]="pacienteItem.email" type="email" formControlName="telefono"></ion-input>            
+                <ion-input [(ngModel)]="pacienteItem.email" type="email" formControlName="email"></ion-input>            
             </ion-item>
             
             <ion-item>
@@ -88,11 +88,18 @@
                             <ion-option value="SOLTERO">SOLTERO/A</ion-option>
                     </ion-select>
             </ion-item>
-                    <ion-auto-complete (itemSelected)="obraSocialSelected($event)" [options]="{placeholder : 'Obra Social'}"   [dataProvider]="autocompleteService" >
+            <div style="display:flex">
+                    <ion-auto-complete #obraSocialSearchBar (itemSelected)="obraSocialSelected($event)" [options]="{placeholder : 'Obra Social'}"   [dataProvider]="autocompleteObraSocial" >
                     </ion-auto-complete>
-                
+                    <button ion-button type="button" clear item-right (click)="onCancelObraSocial()">
+                                <ion-icon name="close"></ion-icon>
+                    </button>                          
+            </div>    
+            <ion-item>
+                    {{obraSocialName}}
+            </ion-item>        
         </ion-list> 
-        <button ion-button full  round  >Guardar</button>    
+        <button ion-button full> Guardar</button>    
 </form>        
 
 

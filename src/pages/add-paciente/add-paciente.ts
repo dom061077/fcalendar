@@ -27,11 +27,14 @@ export class AddPacientePage {
   provinciaSearchBar:AutoCompleteComponent;  
   @ViewChild('localidadSearchBar')
   localidadSearchBar:AutoCompleteComponent;
+  @ViewChild('obraSocialSearchBar')
+  obraSocialSearchBar:AutoCompleteComponent;
   formAdd: FormGroup;
   provinciaKey: any;
   localidad: any;
   provinciaName:string;
   localidadName:string;
+  obraSocialName:string;
   obraSocial: any;
   pacienteItem={fechaNacimiento:'',estadoCivil:'',domicilio:'',codigoPostal:''
                   ,telefono:'',sexo:'',email:'' } as PacienteItem;
@@ -69,6 +72,7 @@ export class AddPacientePage {
 
   onCancelProvincia(){
       this.pacienteItem.localidad={};
+      this.pacienteItem.provincia={};
       this.pacienteItem.codigoPostal='';
 
       this.localidadSearchBar.setValue('');
@@ -77,6 +81,7 @@ export class AddPacientePage {
 
       this.provinciaSearchBar.setValue('');
       this.provinciaName='';
+      
       
   }
 
@@ -96,6 +101,7 @@ export class AddPacientePage {
       this.localidadSearchBar.setValue('');
       this.localidadName = '';
       this.pacienteItem.codigoPostal = '';
+      this.pacienteItem.localidad={};
   }
 
   obraSocialSelected(event){
@@ -104,8 +110,14 @@ export class AddPacientePage {
       */
       this.pacienteItem.obraSocial = {};
       this.pacienteItem.obraSocial[event.$key]={nombre:event.descripcion}
+      this.obraSocialName = event.descripcion;
   }
 
+  onCancelObraSocial(){
+    this.pacienteItem.obraSocial = {};
+    this.obraSocialName = '';
+    this.obraSocialSearchBar.setValue('');
+  }
 
 
 

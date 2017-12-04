@@ -33,7 +33,7 @@
                     </ion-item>
                     <ion-item>
                         <ion-label  floating>Fecha de Nacimiento:</ion-label>
-                        <ion-datetime [(ngModel)]="pacienteItem.fechaNacimiento" formControlName="fechaNacimiento" displayFormat="MM/DD/YYYY" 
+                        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="pacienteItem.fechaNacimiento" formControlName="fechaNacimiento" displayFormat="MM/DD/YYYY" 
                             cancelText="Cancelar" doneText="Aceptar"
                             [(ngModel)]="myDate"></ion-datetime>
                     </ion-item>
@@ -53,8 +53,8 @@
                             {{provinciaName}}
                     </ion-item>    
                     <div style="display:flex">
-                            <ion-auto-complete  #localidadSearchBar (itemSelected)="localidadSelected($event)"   [options]="{placeholder : 'Localidad'}"   [dataProvider]="autocompleteLocProv" ></ion-auto-complete>
-                            <button clear item-right>
+                            <ion-auto-complete  #localidadSearchBar (itemSelected)="localidadSelected($event)"    [options]="{placeholder : 'Localidad'}"   [dataProvider]="autocompleteLocProv" ></ion-auto-complete>
+                            <button clear item-right clear (click)="onCancelLocalidad()">
                                     <ion-icon name="close"></ion-icon>
                             </button>    
                     </div>
@@ -88,8 +88,17 @@
                                     <ion-option value="SOLTERO">SOLTERO/A</ion-option>
                             </ion-select>
                     </ion-item>
-                            <ion-auto-complete (itemSelected)="obraSocialSelected($event)" [options]="{placeholder : 'Obra Social'}"   [dataProvider]="autocompleteService" >
-                            </ion-auto-complete>
+                    <div style="display:flex">    
+                        <ion-auto-complete #obraSocialSearchBar (itemSelected)="obraSocialSelected($event)" [options]="{placeholder : 'Obra Social'}"   [dataProvider]="autocompleteService" >
+                        </ion-auto-complete>
+                        <button ion-button type="button" clear item-right (click)="onCancelObraSocial()">
+                                        <ion-icon name="close"></ion-icon>
+                        </button>                    
+                            
+                    </div>    
+                    <ion-item>
+                            {{obraSocialName}}
+                    </ion-item>        
                         
                 </ion-list> 
     <button ion-button full  round [disabled]="isValid()" >Guardar</button>    
