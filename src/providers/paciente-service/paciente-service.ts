@@ -97,6 +97,10 @@ export class PacienteServiceProvider {
   updatePaciente(pacienteItem:PacienteItem,$key:string){
         var item: FirebaseObjectObservable<any>;
         item = this.database.object('pacientes/'+$key);
+        pacienteItem.apellido = pacienteItem.apellido.toUpperCase();
+        pacienteItem.nombre = pacienteItem.nombre.toUpperCase();
+        pacienteItem.apellido_nombre = pacienteItem.apellido+' '+pacienteItem.nombre;
+
         item.update(pacienteItem);
 
   }

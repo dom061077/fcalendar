@@ -18,7 +18,7 @@
         <ion-list>
             <ion-item>
                 <ion-label floating>D.N.I:</ion-label>
-                <ion-input [(ngModel)]="pacienteItem.dni"
+                <ion-input [readonly]=true [(ngModel)]="pacienteItem.dni"
                          formControlName="dni" type="number"></ion-input>
             </ion-item>
             <ion-item>
@@ -99,7 +99,7 @@
                     {{obraSocialName}}
             </ion-item>        
         </ion-list> 
-        <button ion-button full> Guardar</button>    
+        <button ion-button full  round [disabled]="isValid()" > Guardar</button>    
 </form>        
 
 

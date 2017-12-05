@@ -42,13 +42,11 @@ export class DniValidator{
                         
                 }, 2000);*/
                 this.dniFilter.next(control.value);
-                console.log('consulta: '+control.value);
                 this.debouncer = setTimeout(()=> {
                     
                     this.subscriptor = this.pacientesRef.subscribe((data)=>{
-                        console.log('Consulta sobre dni, devuelve: '+data.length);
                             if(data.length>0){
-                                resolve({'ya existe el dni':true});
+                                resolve({'dniexists':true});
                             }
                             else{
                                 resolve(null);

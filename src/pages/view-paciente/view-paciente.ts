@@ -113,14 +113,14 @@ export class ViewPacientePage {
     //https://forum.ionicframework.com/t/forms-just-can-find-a-working-example/63453/2      
           this.formAdd = this.formBuilder.group({
             //'pacienteId': ['',[Validators.required]],
-              'dni'   : ['', [Validators.required],this.dniValidator.checkDni.bind(this.dniValidator)],
+              'dni'   : ['', [Validators.required]],
               'apellido'   : ['', [Validators.required]],
               'nombre'   : ['', [Validators.required]],
               'fechaNacimiento'   : [''],
               'domicilio'   : [''],
               'codigoPostal'   : [''],
               'telefono'   : [''],
-              'email'     : [''],
+              'email'          : ['',[Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')]],
               'sexo'   : [''],
               'estadoCivil'   : ['']
           });

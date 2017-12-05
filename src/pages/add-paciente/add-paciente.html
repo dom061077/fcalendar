@@ -21,16 +21,29 @@
                         <ion-input [(ngModel)]="pacienteItem.dni"
                                  formControlName="dni" type="number"></ion-input>
                     </ion-item>
+                    <div class="error alert alert-danger" *ngIf="formAdd.get('dni').hasError('dniexists')">
+                                El D.N.I ya existe              
+                    </div>        
+                    <div class="error" *ngIf="formAdd.get('dni').hasError('required')">
+                                El D.N.I es obligatorio
+                    </div>        
+                    
+                    
                     <ion-item>
                         <ion-label  floating>Apellido:</ion-label>
                         <ion-input [(ngModel)]="pacienteItem.apellido"   formControlName="apellido"></ion-input>
                     </ion-item>
+                    <div class="error" *ngIf="formAdd.get('apellido').hasError('required')">
+                                El apellido es obligatorio              
+                    </div>        
                     <ion-item>
                         <ion-label  floating>Nombre:</ion-label>
                         <ion-input [(ngModel)]="pacienteItem.nombre"  formControlName="nombre"></ion-input>
-
-                        
                     </ion-item>
+                    <div class="error" *ngIf="formAdd.get('nombre').hasError('required')">
+                                El nombre es obligatorio              
+                     </div>        
+                    
                     <ion-item>
                         <ion-label  floating>Fecha de Nacimiento:</ion-label>
                         <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="pacienteItem.fechaNacimiento" formControlName="fechaNacimiento" displayFormat="MM/DD/YYYY" 
@@ -54,7 +67,7 @@
                     </ion-item>    
                     <div style="display:flex">
                             <ion-auto-complete  #localidadSearchBar (itemSelected)="localidadSelected($event)"    [options]="{placeholder : 'Localidad'}"   [dataProvider]="autocompleteLocProv" ></ion-auto-complete>
-                            <button clear item-right clear (click)="onCancelLocalidad()">
+                            <button ion-button type="button" clear item-right (click)="onCancelLocalidad()">
                                     <ion-icon name="close"></ion-icon>
                             </button>    
                     </div>
@@ -71,8 +84,11 @@
                     </ion-item>
                     <ion-item>
                         <ion-label floating>E-mail:</ion-label>
-                        <ion-input [(ngModel)]="pacienteItem.email" type="email" formControlName="telefono"></ion-input>            
+                        <ion-input  [(ngModel)]="pacienteItem.email"  formControlName="email"></ion-input>            
                     </ion-item>
+                    <div class="error" *ngIf="formAdd.get('email').hasError('pattern')">
+                                Ingrese un correo de la forma juan@gmail.com
+                    </div>                       
                     
                     <ion-item>
                         <ion-label floating>Sexo:</ion-label>
