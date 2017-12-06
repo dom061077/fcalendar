@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from "../../models/user";
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage  } from '../home/home';
-import { PerfilPage } from '../perfil/perfil';
 import { AlertController } from 'ionic-angular';
 
 @IonicPage()
@@ -47,7 +46,10 @@ export class LoginPage {
         user.password
       );*/
       //if (result) {
-        this.navCtrl.push(PerfilPage);
+        
+      
+      //this.navCtrl.push(PerfilPage);
+
       //}
     /*} catch (e) {
       console.error(e);

@@ -30,14 +30,14 @@
                     
                     
                     <ion-item>
-                        <ion-label  floating>Apellido:</ion-label>
+                        <ion-label floating>Apellido:</ion-label>
                         <ion-input [(ngModel)]="pacienteItem.apellido"   formControlName="apellido"></ion-input>
                     </ion-item>
                     <div class="error" *ngIf="formAdd.get('apellido').hasError('required')">
                                 El apellido es obligatorio              
                     </div>        
                     <ion-item>
-                        <ion-label  floating>Nombre:</ion-label>
+                        <ion-label floating>Nombre:</ion-label>
                         <ion-input [(ngModel)]="pacienteItem.nombre"  formControlName="nombre"></ion-input>
                     </ion-item>
                     <div class="error" *ngIf="formAdd.get('nombre').hasError('required')">
