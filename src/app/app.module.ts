@@ -33,7 +33,6 @@ import { TurnosServiceProvider } from '../providers/turnos-service/turnos-servic
 import { IonicPageModule } from "ionic-angular";
 import { PacienteServiceProvider } from '../providers/paciente-service/paciente-service';
 import { DniValidator  } from '../validators/dni.validator';
-import { UsuariosProvider } from '../providers/usuarios/usuarios';
 import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-service';
 
 
@@ -88,7 +87,6 @@ import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-
     TurnosServiceProvider,
     PacienteServiceProvider,
     DniValidator,
-    UsuariosProvider,
     UsuariosServiceProvider
   ]
 })

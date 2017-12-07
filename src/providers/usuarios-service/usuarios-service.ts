@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase,FirebaseListObservable,FirebaseObjectObservable} from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
+//import { ProfileItem } from '../../models/profile/profile-item.interface';
+//import { User } from '../../models/user';
+import { ProfileUserItem } from '../../models/profile/profile-user-item.interface';
 
 
 /*
@@ -16,17 +19,14 @@ export class UsuariosServiceProvider {
     
   }
 
-  addUser(){
+  async addUser(profileuser:ProfileUserItem){
     try {
       const result = await this.afAuth.auth.createUserWithEmailAndPassword(
-        user.email,
-        user.password
+        profileuser.user.email,
+        profileuser.user.password
       );
       if (result) {
-        
-      
-      //this.navCtrl.push(PerfilPage);
-
+          this.database.object('profiles/${result.uid}').set(profileuser.profile);
       }
     } catch (e) {
       console.error(e);

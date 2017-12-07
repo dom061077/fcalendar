@@ -4,6 +4,8 @@ import { User } from "../../models/user";
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage  } from '../home/home';
 import { AlertController } from 'ionic-angular';
+import { UsuariosServiceProvider  } from '../../providers/usuarios-service/usuarios-service';
+import { ProfileItem } from '../../models/profile/profile-item.interface';
 
 @IonicPage()
 @Component({
@@ -19,7 +21,9 @@ export class LoginPage {
   user = {} as User;
 
   constructor(public alertCtrl: AlertController,private afAuth: AngularFireAuth,
-    public navCtrl: NavController, public navParams: NavParams) {
+              public navCtrl: NavController, public navParams: NavParams
+              ,private userService:UsuariosServiceProvider
+            ) {
   }
  
   async login(user: User) {
@@ -40,6 +44,7 @@ export class LoginPage {
   }
  
   async register(user: User) {
+      var profile = {} as ProfileItem;
     //try {
       /*const result = await this.afAuth.auth.createUserWithEmailAndPassword(
         user.email,

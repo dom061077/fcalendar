@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Perfil de Usuario</ion-title>
+    <ion-title>Agregar Usuario</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,25 +18,34 @@
             <form [formGroup] =  "formAdd"  (ngSubmit)="confirmar()">    
                 <ion-list>
                       <ion-item>
-                          <ion-label floating>E-mail:</ion-label>
-                          <ion-input></ion-input>
-                      </ion-item>  
+                            <ion-label floating>E-mail:</ion-label>
+                            <ion-input [(ngModel)]="profileUser.user.email" formControlName="email"></ion-input>
+                      </ion-item>                            
+                      <ion-item>
+                            <ion-label floating>Password:</ion-label>
+                            <ion-input type="password" [(ngModel)]="profileUser.user.password" formControlName="password"></ion-input>
+                      </ion-item>                            
+                      
                 
                       <ion-item>
                           <ion-label floating>Apellido:</ion-label>
-                          <ion-input></ion-input>
+                          <ion-input [(ngModel)]="profileUser.profile.apellido" formControlName="apellido"></ion-input>
                       </ion-item>  
                       <ion-item>
                           <ion-label floating>Nombre:</ion-label>
-                          <ion-input></ion-input> 
+                          <ion-input [(ngModel)]="profileUser.profile.nombre" formControlName="nombre"></ion-input> 
                       </ion-item>  
                       <ion-item>
                           <ion-label floating>Tipo de Usuario:</ion-label>
-                          <ion-input></ion-input>
+                          <ion-select [(ngModel)]="profileUser.profile.tipoUsuario" formControlName="tipoUsuario">
+                                <ion-option value="ADMINISTRADOR">Administrador</ion-option>                                                                
+                                <ion-option value="PROFESIONAL">Profesional</ion-option>
+                                <ion-option value="SECRETARIA">Secretaria</ion-option>
+                          </ion-select>    
                       </ion-item>  
                       
                 </ion-list>  
-                
+                <button ion-button full round [disabled]="isValid()">Guardar</button>
             </form>  
     </form>  
 
