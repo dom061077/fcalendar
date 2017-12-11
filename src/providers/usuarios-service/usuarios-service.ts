@@ -24,7 +24,7 @@ export class UsuariosServiceProvider {
   startat:BehaviorSubject<string> = new BehaviorSubject<string>('');
   endat:BehaviorSubject<string> = new BehaviorSubject<string>('');
   lastKey: string='';  
-  queryble:boolean;
+  queryable:boolean;
 
   constructor(private database:AngularFireDatabase,private afAuth: AngularFireAuth) {
         this.subscriptionGetUserCount =  this.database.list('',{
@@ -55,9 +55,10 @@ export class UsuariosServiceProvider {
                     this.queryable = true;
                 }
             }
-            if (this.infiniteScroll)
+            /*if (this.infiniteScroll)
                 this.infiniteScroll.complete();
-            this.showSpinner = false;       
+            this.showSpinner = false;       */
+            this.onCompleteGetUsers();
         });
 
   }
