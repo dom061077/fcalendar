@@ -5,6 +5,7 @@ import { ProfileUserItem } from '../../models/profile/profile-user-item.interfac
 import { ProfileItem  } from '../../models/profile/profile-item.interface';
 import { User  } from '../../models/user';
 import { UsuariosServiceProvider } from '../../providers/usuarios-service/usuarios-service';
+import { UserValidator } from '../../validators/user.validator';
 
 /**
  * Generated class for the ProfilePage page.
@@ -23,7 +24,8 @@ export class ProfilePage {
   profileUser = {} as ProfileUserItem;
 
   constructor(public navCtrl: NavController, public navParams: NavParams
-            ,public formBuilder: FormBuilder, private usuarioService : UsuariosServiceProvider ) {
+            ,public formBuilder: FormBuilder, private usuarioService : UsuariosServiceProvider
+            ,private userValidator:  UserValidator) {
       this.profileUser.profile = {} as ProfileItem;
       this.profileUser.user = {} as User;
   }
@@ -37,7 +39,17 @@ export class ProfilePage {
   }
 
   confirmar(){
-      this.usuarioService.addUser(this.profileUser);
+       this.usuarioService.addUser(this.profileUser).then(data=>{
+        this.navCtrl.pop();
+      }).catch(e=>{
+
+          console.error(e);
+          "auth/weak-password"
+          "auth/email-already-in-use"
+          
+
+      });
+      
   }
 
   ngOnInit():any{
@@ -46,7 +58,8 @@ export class ProfilePage {
               'apellido'   : ['', [Validators.required]],
               'nombre'   : ['', [Validators.required]],
               'tipoUsuario' : ['',[Validators.required]],
-              'email' : ['',[Validators.required]],
+              'email' : ['',[Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')
+                    ,Validators.required],this.userValidator.checkUserName.bind(this.userValidator)],
               'password' : ['',[Validators.required]],
           });
     

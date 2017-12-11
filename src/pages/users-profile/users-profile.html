@@ -21,5 +21,13 @@
 
 
 <ion-content padding>
-
+  <ion-list>
+    <ion-spinner name="circles" *ngIf="showSpinner" >  </ion-spinner>  
+           
+      <button ion-item icon-end *ngFor="let item of items | async" (click)="onClickItem(item)">
+        
+        {{item.email}} - {{item.apellido}} {{item.nombre}}
+      </button>                
+    
+  </ion-list>
 </ion-content>

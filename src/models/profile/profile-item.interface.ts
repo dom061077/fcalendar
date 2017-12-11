@@ -1,5 +1,6 @@
 export interface ProfileItem{
-    apellido:string;
-    nombre:string;
-    tipoUsuario:string;
+    email:string,
+    apellido:string,
+    nombre:string,
+    tipoUsuario:string
 }
