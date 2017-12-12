@@ -14,19 +14,25 @@
         <ion-icon right name="add-circle"></ion-icon>
       </button>
     </ion-buttons> 
-    <ion-title>Pacientes</ion-title>
+    <ion-title>Usuarios</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 
 <ion-content padding>
+  <ion-searchbar 
+    [(ngModel)]="myInput"
+    [showCancelButton]="true"
+    (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)">
+  </ion-searchbar>
   <ion-list>
     <ion-spinner name="circles" *ngIf="showSpinner" >  </ion-spinner>  
            
-      <button ion-item icon-end *ngFor="let item of items | async" (click)="onClickItem(item)">
+      <button ion-item icon-end *ngFor="let item of usersService.items | async" (click)="onClickItem(item)">
         
-        {{item.email}} - {{item.apellido}} {{item.nombre}}
+        {{item.email}} - {{item.apellido_nombre}}
       </button>                
     
   </ion-list>

@@ -104,7 +104,7 @@ export class PacientesPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad PacientesPage');
     this.endat.next('\uf8ff');
-            this.startat.next('');
+    this.startat.next('');
             
 
   }

@@ -6,6 +6,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { ProfileUserItem } from '../../models/profile/profile-user-item.interface';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription  } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
 
 
 
@@ -17,9 +18,11 @@ import { Subscription  } from 'rxjs/Subscription';
 */
 @Injectable()
 export class UsuariosServiceProvider {
-  onCompleteGetUsers:any;
   subscriptionGetUserCount: Subscription;
   subscriptionGetUserItems: Subscription;
+  completedQueryObs = new Subject();
+  items: FirebaseListObservable<any>
+
   limit:BehaviorSubject<number> = new BehaviorSubject<number>(20); // import 'rxjs/BehaviorSubject';
   startat:BehaviorSubject<string> = new BehaviorSubject<string>('');
   endat:BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -27,7 +30,7 @@ export class UsuariosServiceProvider {
   queryable:boolean;
 
   constructor(private database:AngularFireDatabase,private afAuth: AngularFireAuth) {
-        this.subscriptionGetUserCount =  this.database.list('',{
+        this.subscriptionGetUserCount =  this.database.list('profiles',{
               query:{
                   orderByChild: 'apellido_nombre'
                   ,limitToLast: 1
@@ -42,11 +45,14 @@ export class UsuariosServiceProvider {
                     this.lastKey = ''; 
                   }
               });
-        this.subscriptionGetUserItems = this.database.list(''.{
+        this.items =   this.database.list('profiles',{
             query:{
-
+                orderByChild: 'apellido_nombre'
+                ,startAt : this.startat
+                ,endAt : this.endat                     
             }
-        }).subscribe(data=>{
+        });
+        this.subscriptionGetUserItems = this.items.subscribe(data=>{
             if (data.length > 0) {
                 // If the last key in the list equals the last key in the database
                 if (data[data.length - 1].$key === this.lastKey) {
@@ -55,10 +61,11 @@ export class UsuariosServiceProvider {
                     this.queryable = true;
                 }
             }
-            /*if (this.infiniteScroll)
-                this.infiniteScroll.complete();
-            this.showSpinner = false;       */
-            this.onCompleteGetUsers();
+            //if (this.infiniteScroll)
+            //    this.infiniteScroll.complete();
+            //this.showSpinner = false;       
+            console.log('Consulta completa');
+            this.completedQueryObs.next(true);
         });
 
   }
@@ -83,7 +90,9 @@ export class UsuariosServiceProvider {
     }
 
     getUsers(filter:string){
-
+        console.log('Filtro: '+filter);
+        this.endat.next(filter+'\uf8ff');
+        this.startat.next(filter+'\uf8ff');
     }  
 
 
