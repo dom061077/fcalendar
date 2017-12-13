@@ -44,8 +44,8 @@ export class ProfilePage {
       }).catch(e=>{
 
           console.error(e);
-          "auth/weak-password"
-          "auth/email-already-in-use"
+          //"auth/weak-password"
+          //"auth/email-already-in-use"
           
 
       });

@@ -92,8 +92,21 @@ export class UsuariosServiceProvider {
     getUsers(filter:string){
         console.log('Filtro: '+filter);
         this.endat.next(filter+'\uf8ff');
-        this.startat.next(filter+'\uf8ff');
+        this.startat.next(filter);
     }  
+
+    changePassword(newPassword:string){
+        this.afAuth.auth.currentUser.updatePassword(newPassword);
+
+    }
+
+
+    unsubscribeAll(){
+        this.subscriptionGetUserCount.unsubscribe();
+        this.subscriptionGetUserItems.unsubscribe();
+    }
+
+
 
 
 }

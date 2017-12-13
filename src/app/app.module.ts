@@ -10,6 +10,7 @@ import { ViewPacientePage  } from '../pages/view-paciente/view-paciente';
 import { ViewTurnoPage } from '../pages/view-turno/view-turno';
 import { UsersProfilePage } from '../pages/users-profile/users-profile';
 import { ProfilePage  } from '../pages/profile/profile';
+import { ViewProfilePage  } from '../pages/view-profile/view-profile';
 
 
 import { MyApp } from './app.component';
@@ -35,6 +36,7 @@ import { PacienteServiceProvider } from '../providers/paciente-service/paciente-
 import { DniValidator  } from '../validators/dni.validator';
 import { UserValidator } from '../validators/user.validator';
 import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-service';
+import { ChangePasswordPage } from '../pages/change-password/change-password';
 
 
 @NgModule({
@@ -48,8 +50,10 @@ import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-
     AddPacientePage,
     ViewPacientePage,
     ViewTurnoPage,
+    ViewProfilePage,
     UsersProfilePage,
-    ProfilePage
+    ProfilePage,
+    ChangePasswordPage
   ],
   imports: [
     BrowserModule,
@@ -74,7 +78,9 @@ import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-
     ViewPacientePage,
     ViewTurnoPage,
     UsersProfilePage,
-    ProfilePage
+    ProfilePage,
+    ViewProfilePage,
+    ChangePasswordPage
   ],
   providers: [
     StatusBar,

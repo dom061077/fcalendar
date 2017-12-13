@@ -1,0 +1,50 @@
+<!--
+  Generated template for the ViewProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Ver Perfil</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup] =  "formView"  (ngSubmit)="confirmar()">      
+        <ion-list>
+              <ion-item>
+                    <ion-label floating>E-mail:</ion-label>
+                    <ion-input [(ngModel)]="profileUser.user.email" formControlName="email"></ion-input>
+              </ion-item>                            
+              <ion-item>
+                    <ion-label floating>Password:</ion-label>
+                    <ion-input type="password" [(ngModel)]="profileUser.user.password" formControlName="password"></ion-input>
+              </ion-item>                            
+              
+        
+              <ion-item>
+                  <ion-label floating>Apellido:</ion-label>
+                  <ion-input [(ngModel)]="profileUser.profile.apellido" formControlName="apellido"></ion-input>
+              </ion-item>  
+              <ion-item>
+                  <ion-label floating>Nombre:</ion-label>
+                  <ion-input [(ngModel)]="profileUser.profile.nombre" formControlName="nombre"></ion-input> 
+              </ion-item>  
+              <ion-item>
+                  <ion-label floating>Tipo de Usuario:</ion-label>
+                  <ion-select [(ngModel)]="profileUser.profile.tipoUsuario" formControlName="tipoUsuario">
+                        <ion-option value="ADMINISTRADOR">Administrador</ion-option>                                                                
+                        <ion-option value="PROFESIONAL">Profesional</ion-option>
+                        <ion-option value="SECRETARIA">Secretaria</ion-option>
+                  </ion-select>    
+              </ion-item>  
+              
+        </ion-list>  
+        <button ion-button full round [disabled]="isValid()">Guardar</button>
+    </form>  
+
+</ion-content>

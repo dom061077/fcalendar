@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfilePage  } from '../profile/profile';
 import { UsuariosServiceProvider } from '../../providers/usuarios-service/usuarios-service';
 import { Subscription  } from 'rxjs/Subscription';
+import { ViewProfilePage  } from '../view-profile/view-profile';
 
 /**
  * Generated class for the UsersProfilePage page.
@@ -45,12 +46,13 @@ export class UsersProfilePage {
       this.navCtrl.push(ProfilePage);
   }
 
-  onClickItem(){
-      console.log('Ingresando al onClickItem');
-      this.usersService.getUsers('');
+  onClickItem(item){
+      
+      this.navCtrl.push(ViewProfilePage,{profileId:item.$key});
   }
 
   onInput(event){
+      this.showSpinner = true;
       this.usersService.getUsers(event.target.value);
       return true;
   }
