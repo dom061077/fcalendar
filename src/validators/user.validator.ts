@@ -24,6 +24,29 @@ export class UserValidator{
                 
     }
 
+    password2Match(control: FormControl):any{
+        return new Promise(resolve=>{
+            if(control.value==control.root.value['password']){
+                resolve (null);
+            }else{
+                resolve ({'password2MissMatching':true});    
+            }
+    
+        })
+    }
+
+    passwordMatch(control: FormControl):any{
+        return new Promise(resolve=>{
+            if(control.value==control.root.value['password2']){
+                resolve (null);
+            }else{
+                resolve ({'passwordMissMatching':true});    
+            }
+    
+        })
+    }
+    
+
     checkUserName(control: FormControl):any{
         clearTimeout(this.debouncer);
         

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UsuariosServiceProvider } from '../../providers/usuarios-service/usuarios-service';
 import { FormGroup, FormBuilder, FormControl, Validators,ReactiveFormsModule  } from "@angular/forms";
+import { UserValidator } from '../../validators/user.validator';
 
 /**
  * Generated class for the ChangePasswordPage page.
@@ -21,18 +22,21 @@ export class ChangePasswordPage {
   password2:string;
   constructor(public navCtrl: NavController, public navParams: NavParams
               ,private userService:UsuariosServiceProvider
-              ,private formBuilder:FormBuilder) {
+              ,private formBuilder:FormBuilder
+              ,private userValidator:UserValidator) {
 
   }
 
   confirmar(){
-     this.userService.changePassword(this.password);
-  }
+     this.userService.changePassword(this.password).catch(e=>{
+          console.log('Error: '+e);
+     });
+  } 
 
   ngOnInit(){
       this.formPass = this.formBuilder.group({
-        'password' : ['',[Validators.required]],
-        'password2' : ['',[Validators.required]]
+        'password' : ['',[Validators.required],this.userValidator.passwordMatch.bind(this.userValidator)],
+        'password2' : ['',[Validators.required],this.userValidator.password2Match.bind(this.userValidator)]
       });
 
 

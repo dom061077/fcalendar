@@ -4,6 +4,7 @@ import { AutocompleteObrasocialServiceProvider } from '../../providers/autocompl
 import { AutocompleteProvinciaProvider } from '../../providers/autocomplete-provincia/autocomplete-provincia';
 import { AutocompleteLocalidadProvider  } from '../../providers/autocomplete-localidad/autocomplete-localidad';
 import { FormGroup, FormBuilder, FormControl, Validators,ReactiveFormsModule  } from "@angular/forms";
+import {  } from '@angular/';
 import { AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 import { AutoCompleteComponent } from 'ionic2-auto-complete';
 import { PacienteItem } from '../../models/paciente/paciente-item';
@@ -145,5 +146,6 @@ export class AddPacientePage {
           });
     
   }  
+
 
 }

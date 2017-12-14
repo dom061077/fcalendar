@@ -71,7 +71,6 @@ export class UsuariosServiceProvider {
   }
 
     async addUser(profileuser:ProfileUserItem){
-    //try {
       const result = await  this.afAuth.auth.createUserWithEmailAndPassword(
         profileuser.user.email,
         profileuser.user.password
@@ -84,21 +83,21 @@ export class UsuariosServiceProvider {
           
 
       });
-    //} catch (e) {
-    //  throw 400;
-    //}
     }
 
+    async changePassword(newPassword:string){
+        await this.afAuth.auth.currentUser.updatePassword(newPassword).then(data=>{
+                console.log('Pasa por el then '+data);
+        });
+
+    }
+    
     getUsers(filter:string){
         console.log('Filtro: '+filter);
         this.endat.next(filter+'\uf8ff');
         this.startat.next(filter);
     }  
 
-    changePassword(newPassword:string){
-        this.afAuth.auth.currentUser.updatePassword(newPassword);
-
-    }
 
 
     unsubscribeAll(){
