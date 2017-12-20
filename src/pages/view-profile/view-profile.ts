@@ -48,17 +48,14 @@ export class ViewProfilePage {
   }  
 
   confirmar(){
-      this.userService.changePassword('probando');
+    this.userService.updateProfile(this.profileUser.profile,);
   }
 
   ngOnInit(){
       this.formView = this.formBuilder.group({
         'apellido'   : ['', [Validators.required]],
         'nombre'   : ['', [Validators.required]],
-        'tipoUsuario' : ['',[Validators.required]],
-        'email' : ['',[Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')
-              ,Validators.required]],
-        'password' : ['',[Validators.required]],
+        'tipoUsuario' : ['',[Validators.required]]
       });
   }
 

@@ -4,6 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 //import { ProfileItem } from '../../models/profile/profile-item.interface';
 //import { User } from '../../models/user';
 import { ProfileUserItem } from '../../models/profile/profile-user-item.interface';
+import { ProfileItem } from '../../models/profile/profile-item.interface';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription  } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
@@ -91,6 +92,10 @@ export class UsuariosServiceProvider {
         });
 
     }
+
+    async changeEmail(email:string){
+        await this.afAuth.auth.currentUser.updateEmail(email)    ;
+    }
     
     getUsers(filter:string){
         console.log('Filtro: '+filter);
@@ -98,6 +103,15 @@ export class UsuariosServiceProvider {
         this.startat.next(filter);
     }  
 
+    updateProfile(profileuser:ProfileUserItem,userKey:string){
+        var item : FirebaseObjectObservable<any>;
+        item = this.database.object('profiles/'+userKey);
+        let profileItem = {} as ProfileItem;
+        profileItem.apellido = profileuser.profile.apellido;
+        profileItem.nombre = profileuser.profile.nombre;
+        profileItem.apellido_nombre = profileItem.apellido+' '+profileItem.nombre;
+        profileItem.tipoUsuario = profileuser.profile.tipoUsuario;
+    }
 
 
     unsubscribeAll(){
