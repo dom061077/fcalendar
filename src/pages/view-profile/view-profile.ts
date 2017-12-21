@@ -34,7 +34,7 @@ export class ViewProfilePage {
                 .subscribe(data=>{
                     this.profileUser.profile={apellido:data.apellido,apellido_nombre:data.apellido_nombre
                         ,email:data.email,nombre:data.nombre,tipoUsuario:data.tipoUsuario};
-                    this.profileUser.user={email:data.email,password:''};
+                    this.profileUser.user={$key:data.$key,email:data.email,password:''};
       
                 });
   }
@@ -48,7 +48,8 @@ export class ViewProfilePage {
   }  
 
   confirmar(){
-    this.userService.updateProfile(this.profileUser.profile,);
+    console.log('datos de profile user');
+    this.userService.updateProfile(this.profileUser.profile,this.profileUser.user.$key);
   }
 
   ngOnInit(){

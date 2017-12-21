@@ -103,12 +103,12 @@ export class UsuariosServiceProvider {
         this.startat.next(filter);
     }  
 
-    updateProfile(profileuser:ProfileUserItem,userKey:string){
+    updateProfile(profile:ProfileItem,userKey:string){
         var item : FirebaseObjectObservable<any>;
         item = this.database.object('profiles/'+userKey);
         let profileItem = {} as ProfileItem;
-        profileItem.apellido = profileuser.profile.apellido;
-        profileItem.nombre = profileuser.profile.nombre;
+        profileItem.apellido = profile.apellido;
+        profileItem.nombre = profile.nombre;
         profileItem.apellido_nombre = profileItem.apellido+' '+profileItem.nombre;
         profileItem.tipoUsuario = profileuser.profile.tipoUsuario;
     }
