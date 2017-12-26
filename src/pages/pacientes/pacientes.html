@@ -1,24 +1,24 @@
-<ion-header>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-buttons end>
-      <button (click)="onAdd()" ion-button >
-        <ion-icon right name="add-circle"></ion-icon>
+  <ion-header>
+    <ion-navbar color="primary">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
       </button>
-    </ion-buttons> 
-    <ion-title>Pacientes</ion-title>
-  </ion-navbar>
-</ion-header>
+      <ion-buttons end>
+        <button (click)="onAdd()" ion-button >
+          <ion-icon right name="add-circle"></ion-icon>
+        </button>
+      </ion-buttons> 
+      <ion-title>Pacientes</ion-title>
+    </ion-navbar>
+  </ion-header>
 
 
 <ion-content>
   
   <ion-searchbar 
-    [placeholder]="ApellidoNombre"
+    placeholder="Filtrar por Apellido y Nombre"
     [(ngModel)]="myInput"
-    [showCancelButton]="true"
+    showCancelButton=true
     (ionInput)="onInput($event)"
     (ionCancel)="onCancel($event)">
 </ion-searchbar>

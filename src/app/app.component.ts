@@ -9,6 +9,9 @@ import { PacientesPage  } from '../pages/pacientes/pacientes';
 import { LoginPage  } from '../pages/login/login';
 import { UsersProfilePage } from '../pages/users-profile/users-profile';
 import { ChangePasswordPage  } from '../pages/change-password/change-password';
+import { HistoriaClinicaPage } from '../pages/historia-clinica/historia-clinica';
+import { ProfesionalesPage } from '../pages/profesionales/profesionales';
+
 
 
 @Component({
@@ -28,6 +31,8 @@ export class MyApp {
     this.pages = [
       { title: 'Turnos', component: HomePage },
       { title: 'Pacientes', component: PacientesPage },
+      { title: 'Historia Clínica' ,component:HistoriaClinicaPage},
+      { title: 'Profesionales' ,component:ProfesionalesPage},
       { title: 'Usuarios' ,component:UsersProfilePage},
       { title: 'Contraseña',component: ChangePasswordPage}
     ];

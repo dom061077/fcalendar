@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase,FirebaseListObservable,FirebaseObjectObservable} from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
-//import { ProfileItem } from '../../models/profile/profile-item.interface';
-//import { User } from '../../models/user';
+import { AngularFireAuth  } from 'angularfire2/auth';
+import * as firebase from 'firebase';
 import { ProfileUserItem } from '../../models/profile/profile-user-item.interface';
 import { ProfileItem } from '../../models/profile/profile-item.interface';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -86,8 +85,14 @@ export class UsuariosServiceProvider {
       });
     }
 
-    async changePassword(newPassword:string){
-        await this.afAuth.auth.currentUser.updatePassword(newPassword).then(data=>{
+    async changePassword(oldPassword:string, newPassword:string){
+        var email=this.afAuth.auth.currentUser.email;
+        //var credential: FIRAuthCredential;
+        //this.afAuth.auth.currentUser.
+        //this.afAuth.auth.currentUser.reauthenticateWithCredential();
+        const credential = firebase.auth.EmailAuthProvider.credential(email,oldPassword);
+        await this.afAuth.auth.currentUser.reauthenticateAndRetrieveDataWithCredential(credential);
+        await this.afAuth.auth.currentUser .updatePassword(newPassword).then(data=>{
                 console.log('Pasa por el then '+data);
         });
 
@@ -109,8 +114,9 @@ export class UsuariosServiceProvider {
         let profileItem = {} as ProfileItem;
         profileItem.apellido = profile.apellido;
         profileItem.nombre = profile.nombre;
-        profileItem.apellido_nombre = profileItem.apellido+' '+profileItem.nombre;
-        profileItem.tipoUsuario = profileuser.profile.tipoUsuario;
+        profileItem.apellido_nombre = profile.apellido+' '+profile.nombre;
+        profileItem.tipoUsuario = profile.tipoUsuario;
+        item.update(profileItem);
     }
 
 

@@ -11,6 +11,8 @@ import { ViewTurnoPage } from '../pages/view-turno/view-turno';
 import { UsersProfilePage } from '../pages/users-profile/users-profile';
 import { ProfilePage  } from '../pages/profile/profile';
 import { ViewProfilePage  } from '../pages/view-profile/view-profile';
+import { HistoriaClinicaPage } from '../pages/historia-clinica/historia-clinica';
+import { ProfesionalesPage } from '../pages/profesionales/profesionales';
 
 
 import { MyApp } from './app.component';
@@ -37,6 +39,7 @@ import { DniValidator  } from '../validators/dni.validator';
 import { UserValidator } from '../validators/user.validator';
 import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-service';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
+import { ProfesionalesProvider } from '../providers/profesionales/profesionales';
 
 
 @NgModule({
@@ -53,7 +56,10 @@ import { ChangePasswordPage } from '../pages/change-password/change-password';
     ViewProfilePage,
     UsersProfilePage,
     ProfilePage,
-    ChangePasswordPage
+    ChangePasswordPage,
+    HistoriaClinicaPage,
+    ProfesionalesPage
+
   ],
   imports: [
     BrowserModule,
@@ -80,7 +86,9 @@ import { ChangePasswordPage } from '../pages/change-password/change-password';
     UsersProfilePage,
     ProfilePage,
     ViewProfilePage,
-    ChangePasswordPage
+    ChangePasswordPage,
+    HistoriaClinicaPage,
+    ProfesionalesPage
   ],
   providers: [
     StatusBar,
@@ -95,7 +103,8 @@ import { ChangePasswordPage } from '../pages/change-password/change-password';
     PacienteServiceProvider,
     DniValidator,
     UserValidator,
-    UsuariosServiceProvider
+    UsuariosServiceProvider,
+    ProfesionalesProvider
   ]
 })
 export class AppModule {}

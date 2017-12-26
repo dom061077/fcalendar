@@ -50,6 +50,7 @@ export class ViewProfilePage {
   confirmar(){
     console.log('datos de profile user');
     this.userService.updateProfile(this.profileUser.profile,this.profileUser.user.$key);
+    this.navCtrl.pop();
   }
 
   ngOnInit(){
