@@ -13,6 +13,7 @@ import { ProfilePage  } from '../pages/profile/profile';
 import { ViewProfilePage  } from '../pages/view-profile/view-profile';
 import { HistoriaClinicaPage } from '../pages/historia-clinica/historia-clinica';
 import { ProfesionalesPage } from '../pages/profesionales/profesionales';
+import { ViewProfesionalPage } from '../pages/view-profesional/view-profesional';
 
 
 import { MyApp } from './app.component';
@@ -39,7 +40,7 @@ import { DniValidator  } from '../validators/dni.validator';
 import { UserValidator } from '../validators/user.validator';
 import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-service';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
-import { ProfesionalesProvider } from '../providers/profesionales/profesionales';
+import { ProfesionalesProvider } from '../providers/profesionales/profesionales-service';
 
 
 @NgModule({
@@ -58,7 +59,9 @@ import { ProfesionalesProvider } from '../providers/profesionales/profesionales'
     ProfilePage,
     ChangePasswordPage,
     HistoriaClinicaPage,
-    ProfesionalesPage
+    ProfesionalesPage,
+    ViewPacientePage,
+    ViewProfesionalPage
 
   ],
   imports: [
@@ -88,7 +91,9 @@ import { ProfesionalesProvider } from '../providers/profesionales/profesionales'
     ViewProfilePage,
     ChangePasswordPage,
     HistoriaClinicaPage,
-    ProfesionalesPage
+    ProfesionalesPage,
+    ViewPacientePage,
+    ViewProfesionalPage
   ],
   providers: [
     StatusBar,
