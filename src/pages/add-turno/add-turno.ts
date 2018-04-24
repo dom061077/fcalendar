@@ -89,14 +89,13 @@ export class AddTurnoPage implements OnInit {
             {apellido_nombre:this.apellidoNombre,dni:this.dni}
       );*/
       const turnoItem = {} as TurnoItem;
-      turnoItem.paciente = {} as TurnoItem['paciente'];
+      turnoItem.paciente = {} 
       turnoItem.start = this.startDate.format();
       turnoItem.end = this.endDate.format();
       turnoItem.title = this.apellidoNombre;
-      turnoItem.paciente.apellido = this.apellido;
-      turnoItem.paciente.nombre = this.nombre;
-      turnoItem.paciente.dni = this.dni;
-      this.turnoService.addTurno(turnoItem);
+      turnoItem.paciente[this.$keyPaciente] = {apellido:this.apellido
+                    ,nombre:this.nombre,dni:this.dni};
+      this.turnoService.addTurno(turnoItem,this.$keyPaciente);
       this.navCtrl.push(HomePage) ;
   }
 

@@ -41,6 +41,7 @@ import { UserValidator } from '../validators/user.validator';
 import { UsuariosServiceProvider } from '../providers/usuarios-service/usuarios-service';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { ProfesionalesProvider } from '../providers/profesionales/profesionales-service';
+import { SeguridadServiceProvider } from '../providers/usuarios-service/seguridad-service';
 
 
 @NgModule({
@@ -109,7 +110,8 @@ import { ProfesionalesProvider } from '../providers/profesionales/profesionales-
     DniValidator,
     UserValidator,
     UsuariosServiceProvider,
-    ProfesionalesProvider
+    ProfesionalesProvider,
+    SeguridadServiceProvider
   ]
 })
 export class AppModule {}

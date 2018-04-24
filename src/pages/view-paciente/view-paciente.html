@@ -33,7 +33,9 @@
             </ion-item>
             <ion-item>
                 <ion-label  floating>Fecha de Nacimiento:</ion-label>
-                <ion-datetime [(ngModel)]="pacienteItem.fechaNacimiento" formControlName="fechaNacimiento" displayFormat="MM/DD/YYYY" 
+                <ion-datetime [(ngModel)]="pacienteItem.fechaNacimiento" 
+                        formControlName="fechaNacimiento" displayFormat="DD/MM/YYYY" 
+                        pickerFormat="DD/MM/YYYY" 
                     cancelText="Cancelar" doneText="Aceptar"
                     [(ngModel)]="myDate"></ion-datetime>
             </ion-item>

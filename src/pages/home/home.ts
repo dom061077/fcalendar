@@ -60,7 +60,7 @@ export class HomePage {
       this.turnosList = this.database.list('turnos',{
           query:{
               orderByChild:'start',
-              startAt: momento.format()
+              //startAt: momento.format()
               
               
           }
@@ -118,8 +118,9 @@ export class HomePage {
                 this.events$.pop();
 
               }
-              console.log('Antes de ingresar al foreach: ');
+              console.log('Antes de ingresar al foreach: items:'+items);
               items.forEach(element => {
+                console.log('Elemento: '+element.title);
                 this.events$.push({
                   id: element.$key,
                   title:element.title,

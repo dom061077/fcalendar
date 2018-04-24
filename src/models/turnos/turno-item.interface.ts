@@ -5,8 +5,8 @@ export interface TurnoItem{
     end: any;
     title: string;
     paciente:{
-        apellido: string;
-        nombre: string;
-        dni: string;
+        //apellido: string;
+        //nombre: string;
+        //dni: string;
     }   
 }

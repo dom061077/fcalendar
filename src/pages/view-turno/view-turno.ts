@@ -21,11 +21,12 @@ import * as moment from 'moment';
 })
 export class ViewTurnoPage {
   turnoItem = {} as TurnoItem;
+  paciente$Key = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams
           ,private turnosService: TurnosServiceProvider ) {
         this.turnoItem = turnosService.getTurno(this.navParams.get('id'));
-
+        this.paciente$Key = Object.keys(this.turnoItem.paciente).toString();
 
   }
 

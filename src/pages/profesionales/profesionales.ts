@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfesionalesProvider } from '../../providers/profesionales/profesionales-service';
 import { ViewProfesionalPage } from '../view-profesional/view-profesional';
+import { AngularFireDatabase} from 'angularfire2/database';
 
 /**
  * Generated class for the ProfesionalesPage page.
@@ -18,7 +19,8 @@ import { ViewProfesionalPage } from '../view-profesional/view-profesional';
 export class ProfesionalesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams
-        ,private proService: ProfesionalesProvider) {
+        ,private proService: ProfesionalesProvider
+        ,private database: AngularFireDatabase) {
   }
 
   ionViewDidLoad() {
@@ -28,6 +30,10 @@ export class ProfesionalesPage {
   onAdd(){
       //this.proService.initInstitucion();
       this.navCtrl.push(ViewProfesionalPage);
+  }
+
+  onCreateRoles(){
+      alert('Hola');
   }
 
 }

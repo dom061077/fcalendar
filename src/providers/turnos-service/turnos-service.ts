@@ -19,28 +19,52 @@ export class TurnosServiceProvider {
   }
 
   moverTurno(key:string,startMoment:any,endMoment:any){
-      var item: FirebaseObjectObservable<any>;
+      /*var item: FirebaseObjectObservable<any>;
       item = this.database.object('turnos/'+key);
       item.update({
             start:startMoment.format(),
             end:endMoment.format()
+      });*/
+
+      const turnoItem = this.database.object('turnos/'+key);
+      //let $pacienteKey = Object.keys(turnoItem.paciente);
+      let updateObject = {};
+      
+      const subscription = turnoItem.subscribe(item=>{
+            updateObject['turnos/'+key+'/end']=endMoment.format();
+            updateObject['turnos/'+key+'/start']=startMoment.format();
+            updateObject['pacientes/'+Object.keys(item.paciente)+'/turnos/'+key+'/end']=endMoment.format();
+            updateObject['pacientes/'+Object.keys(item.paciente)+'/turnos/'+key+'/start']=startMoment.format();
       });
+      this.database.object('/').update(updateObject);
+      subscription.unsubscribe();
 
   }
 
-  addTurno(turnoItem:TurnoItem){
-      const turnos = this.database.list('turnos');
-      let turnoAgregado = turnos.push(turnoItem);
+  addTurno(turnoItem:TurnoItem,$keyPaciente){
+      //const turnos = this.database.list('turnos');
+     // let turnoAgregado = turnos.push(turnoItem);
 /*      turnoAgregado.child('paciente/'+this.$keyPaciente).set(
         {apellido_nombre:this.apellidoNombre,dni:this.dni}
       );      */
+      let updateObject = {};
+      const turnos = this.database.list('turnos');
+      let turnoAgregado = turnos.push(turnoItem);
+      updateObject['pacientes/'+$keyPaciente+'/turnos/'
+          +turnoAgregado.key]=turnoItem;
+      this.database.object('/').update(updateObject);
+      console.log(updateObject);
   }
 
   deleteTurno(turnoItem:TurnoItem){
      
      const items = this.database.list('turnos');
-     console.log('Removiendo item: '+turnoItem.$key);
+     const $pacienteKey = Object.keys(turnoItem.paciente);
+     let removeObject = {};
+     removeObject['pacientes/'+$pacienteKey+'/turnos/'+turnoItem.$key]=null;
+     this.database.object('/').update(removeObject);
      items.remove(turnoItem.$key);
+     
   }
 
   getTurno(id:string):TurnoItem{
@@ -52,9 +76,13 @@ export class TurnosServiceProvider {
         turnoItem.start = moment(item.start);
         turnoItem.end = moment(item.end);
         turnoItem.title = item.title;
-        turnoItem.paciente.dni = item.paciente.dni;
-        turnoItem.paciente.apellido = item.paciente.apellido;
-        turnoItem.paciente.nombre = item.paciente.nombre;
+        turnoItem.paciente = item.paciente;
+
+        
+        
+        //turnoItem.paciente.dni = item.paciente.dni;
+        //turnoItem.paciente.apellido = item.paciente.apellido;
+        //turnoItem.paciente.nombre = item.paciente.nombre;
 
 
     });
