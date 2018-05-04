@@ -4,6 +4,8 @@ import { ProfilePage  } from '../profile/profile';
 import { UsuariosServiceProvider } from '../../providers/usuarios-service/usuarios-service';
 import { Subscription  } from 'rxjs/Subscription';
 import { ViewProfilePage  } from '../view-profile/view-profile';
+import { SeguridadServiceProvider } from '../../providers/usuarios-service/seguridad-service';
+
 
 /**
  * Generated class for the UsersProfilePage page.
@@ -24,7 +26,7 @@ export class UsersProfilePage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams
-            ,private usersService:UsuariosServiceProvider) {
+            ,private usersService:UsuariosServiceProvider ,private seguridadService:SeguridadServiceProvider) {
               this.showSpinner = true;
               this.completedSubscription = this.usersService.completedQueryObs.subscribe((data)=>{
 
@@ -44,6 +46,16 @@ export class UsersProfilePage {
 
   onAdd(){
       this.navCtrl.push(ProfilePage);
+  }
+
+  onAddRole(){
+      var pages = {} as Array<string>;
+      pages=['UsersProfilePage','AddPacientePage'];
+      this.seguridadService.agregarRolesandPages('ADMINISTRADOR',pages);
+  }
+
+  onAddRoles(){
+
   }
 
   onClickItem(item){
