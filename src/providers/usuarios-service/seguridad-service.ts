@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase,FirebaseListObservable,FirebaseObjectObservable} from 'angularfire2/database';
 import { AccessPageItem } from '../../models/seguridad/accesspage-item';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 @Injectable()
 export class SeguridadServiceProvider {
     rolUsuario:string;
     pages = new Array() as Array<string>;
-    constructor(private database:AngularFireDatabase){
+    constructor(private database:AngularFireDatabase,private afAuth: AngularFireAuth){
         this.rolUsuario = 'PROFESIONAL';
     }
 
@@ -28,18 +29,29 @@ export class SeguridadServiceProvider {
         });
         const $rolKey = rolAgregado.key;
         const access_item = {} as AccessPageItem;
-        let access_returned = {};
+        
         access_pages.forEach(p=>{
             access_item.name = p;
-            access_returned=access.push(access_item);
+            let access_returned=access.push(access_item);
             const data = {[rolAgregado.key]:true};
-            //const roles = this.database.object('accesspages/'+access_returned.key()+'/roles/');
-            //roles.update(data);
+            const roles = this.database.object('accesspages/'+access_returned.key+'/roles/');
+            roles.update(data);
 
         });
 
 
     }
+
+
+    agregarRolesUsuario(uidProfile:string,roleKeys:Array<string>){
+        const profile_role = this.database.object('profiles/'+uidProfile+'/roles');
+        roleKeys.forEach(r=>{
+            const data = {[r]:true};
+            profile_role.update(data);
+        });
+    } 
+    
+
 
 
 }

@@ -54,7 +54,10 @@ export class UsersProfilePage {
       this.seguridadService.agregarRolesandPages('ADMINISTRADOR',pages);
   }
 
-  onAddRoles(){
+  onAddRoleProfile(){
+      let roles = {} as Array<string>;  
+      roles=['PROFESIONAL'];
+      this.seguridadService.agregarRolesUsuario('NvSDkEAMYEOhR9a070wYApX0kyq1',roles);
 
   }
 
