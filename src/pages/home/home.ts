@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { TurnosServiceProvider  } from '../../providers/turnos-service/turnos-service';
 import { ViewTurnoPage } from '../../pages/view-turno/view-turno';
 
+
 //@IonicPage()
 @Component({
   selector: 'page-home',
@@ -57,14 +58,14 @@ export class HomePage {
       const momento = moment();
       momento.month(9).date(25).minute(0).second(0).hour(0);
 
-      this.turnosList = this.database.list('turnos',{
+      /*this.turnosList = this.database.list('turnos',{
           query:{
               orderByChild:'start',
               //startAt: momento.format()
               
               
           }
-      });
+      });*/
   }
 
   private eventDrop( event, delta, revertFunc, jsEvent, ui, view ){
